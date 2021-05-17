@@ -1,0 +1,97 @@
+{% extends "business/base.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Wel come to Hash Tags</h1>
+<p>Here you will see 50 top trending topics of Country</p>
+<h3>Use Search below For Topics in Any Country</h3>
+
+<!--FORM STARTS-->
+<form method="post">
+  {% csrf_token %}
+  <!--INPUT AND SEARCH TOPIC-->
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" name = "countryname" placeholder="Search">
+    <div class="input-group-append">
+      <button class="btn btn-outline-primary" type="submit">Search Trends</button>
+    </div>
+  </div>
+
+<!--SHOW TRENDING TOPICS-->
+  <h2 style="color: red;">{{error}}</h2>
+  <h3 id="trendheadline">Trending Topics in {{countryname}}</h3>
+  <select onchange="changed()" title="my_options" id="selecttag" class="form-select" aria-label="Default select example" name="selecttopic" id="tagstopics">
+    <option selected>Select Trend / Topic</option>
+    {% for topic in topics %}
+    <option value = "{{topic}}" id="{{forloop.counter}}">{{topic}}</option>
+    {% endfor %}
+  </select>
+
+  <input name="selectionvalue" id="st" style="display: none;" type="text" value="none">
+  <!--
+  <button id="analysisbutton" onclick="clickanalysebutton()" type="submit" class="btn btn-outline-success">Perform Data Analysis</button>
+  -->
+  <br><br>
+  
+    <button id="seetweets" name="seetweets" value="seetweets" type="submit" class="btn btn-primary ">See Tweets</button>
+    <button id="fusedwords" name="fusedwords" value="fusedwords" type="submit" class="btn btn-warning ">Frequently Used Words </button>
+    <button id="wordcount" name="wordcount" value="wordcount" type="submit" class="btn btn-secondary ">Word Count</button>
+</form>
+<!--FORM ENDS-->
+
+<!--Show selected option-->
+<h2>{{selected}}</h2>
+
+<!--Show Trending Tweets-->
+<div>
+  {% for tweet in trendingtweets %}
+  <h5>{{tweet}}</h5><br><br>
+  {% endfor %}
+</div>
+<!--
+{% for p in polarity %}
+  <h6>{{p}}</h6>
+{% endfor %}
+-->
+
+
+<h2>{{fusedwords}}</h2>
+<h2>{{wordcount}}</h2>
+<!--SCRIPT-->
+<script>
+  if(!'{{topics}}')
+  {
+    if(!'{{seetweets}}' && !'{{fusedwords}}' && !'{{wordcount}}')
+    {
+      document.getElementById('seetweets').style.display= 'none'
+      document.getElementById('fusedwords').style.display= 'none'
+      document.getElementById('wordcount').style.display= 'none'
+    }
+    document.getElementById('selecttag').style.display = 'none'
+    document.getElementById('trendheadline').style.display = 'none'
+    document.getElementById('analysisbutton').style.display = 'none'
+    
+  }
+  /*
+  function clickanalysebutton(){
+    document.getElementById('seetweets').style.display= 'block'
+    document.getElementById('fusedwords').style.display= 'block'
+    document.getElementById('wordcount').style.display= 'block'
+
+  }
+*/
+  function changed(){
+    document.getElementById('st').value = document.getElementById('selecttag').value
+  }
+  //function performanalysis(){
+    //document.getElementById('countryname').disabled = true
+  //}
+  /*
+  function click_for_search(){
+    document.getElementsByName('selectionvalue').value = document.getElementById('selecttag').value
+    document.getElementById('selecttag').style.display = 'block'
+    document.getElementById('trendheadline').style.display = 'block'
+  }*/
+</script>
+<!--SCRIPT ENDS-->
+{% endblock content %}
