@@ -88,7 +88,6 @@ def trends(request):
             # get country name
             country_name = str(request.POST.get('countryname')).capitalize()
             try:
-
                 # VALIDATE FORM DATA
                 if CountryList.objects.get(name=country_name):
                     # get country id

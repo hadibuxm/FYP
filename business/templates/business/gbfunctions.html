@@ -2,98 +2,104 @@
 {% load static %}
 {% block content%}
 
-<div class="d-flex align-items-center">
-<form id="functions" method="post" >
+<div class="container">
+  <div class="row">
+    <div style="background-color: rgb(211, 220, 228);" class="col-lg-3">
+      <form id="functions" method="post" >
   {% csrf_token %}
   <!--SELECT MENU-->
-  <select onchange= "showbusinesses()" title="Select Business Category" id="selectcategory" class="form-select" aria-label="Default select example" name="selectcategory" >
-      <option selected>Select Business/Category</option>
-      <option value = "clothing" id="">Clothing</option>
-      <option value="foodonline">Food Online</option>
-      <option value="mobilepayment">Mobile Payment</option>
-      <option value="onlineshopping">Online Shopping</option>
-      <option value="footwear">Footwear</option>
-      <option value="property">Property</option>
-      <option value="beverage">Beverage</option>
-      <option value="banks">Banks</option>
-      <option value=""></option>
-      <option value=""></option>
-      <option value=""></option>
-      <option value=""></option>
-      <option value=""></option>
-      <option value=""></option>
-  </select>
-  
-  <select onchange="changed()" title="Select Business" id="selectbusiness" class="form-select" aria-label="Default select example" name="selectbusiness">
-    <option selected>Select Business</option>
-    <option value="" id="1"></option>
-    <option value="" id="2"></option>
-    <option value="" id="3"></option>
-    <option value="" id="4"></option>
-    <option value="" id="5"></option>
-    <option value="" id="6"></option>
-    <option value="" id="7"></option>
-    <option value="" id="8"></option>
-    <option value="" id="9"></option>
-    <option value="" id="10"></option>
-  </select>
+        <select onchange= "showbusinesses()" title="Select Business Category" id="selectcategory" class="form-select" aria-label="Default select example" name="selectcategory" >
+          <option selected>Select Business/Category</option>
+            <option value = "clothing" id="">Clothing</option>
+            <option value="foodonline">Food Online</option>
+            <option value="mobilepayment">Mobile Payment</option>
+            <option value="onlineshopping">Online Shopping</option>
+            <option value="footwear">Footwear</option>
+            <option value="property">Property</option>
+            <option value="beverage">Beverage</option>
+            <option value="banks">Banks</option>
+            <option value=""></option>
+            <option value=""></option>
+            <option value=""></option>
+            <option value=""></option>
+            <option value=""></option>
+            <option value=""></option>
+        </select>
+        <br><br>
+        <select onchange="changed()" title="Select Business" id="selectbusiness" class="form-select" aria-label="Default select example" name="selectbusiness">
+          <option selected>Select Business</option>
+          <option value="" id="1"></option>
+          <option value="" id="2"></option>
+          <option value="" id="3"></option>
+          <option value="" id="4"></option>
+          <option value="" id="5"></option>
+          <option value="" id="6"></option>
+          <option value="" id="7"></option>
+          <option value="" id="8"></option>
+          <option value="" id="9"></option>
+          <option value="" id="10"></option>
+        </select>
   <!--INPUT AND SEARCH TOPIC-->
-  <br><br>
   <!--
   <h3>Enter Twitter id of Business</h3>-->
   <!--
   <input type="text" name="userid" id="userid", value=""> 
   -->
-  <h5 style="display: inline;">Enter No. of Tweets</h5>
-  <input type="text" name="nooftweets" id="", value="">
-  <br><br>
-  <button name="showtags" class="btn btn-success" type = "submit"><b>Show Hashtags</b> </button>
-  <button name="showfwords"  class="btn btn-warning " type="submit"><b>Topic Identification</b> </button>
-  <button name="showurls" class="btn btn-primary" type="submit"><b> See URL's</b></button>
-  <button name="showmentions" class="btn btn-outline-danger" type="submit">See Mentions</button>
-  <button name="showtestgraph" class="btn btn-dark" type="submit">Show test plot</button>
-</form>
-</div>
-
-<h2 style="color: red;">{{errormessage}}</h2>
-<h2 style="color: red;">{{nohashtagsmessage}}</h2>
+        <br><br>
+        <h5 style="display: inline;">Enter No. of Tweets</h5>
+        <input type="text" name="nooftweets" id="", value="">
+        <br><br>
+        <div class="btn-group-vertical btn-group-lg btn-group-justified" >
+          <button name="showtags" class="btn btn-primary" type = "submit"><b>Show Hashtags</b> </button>
+          <button name="showfwords"  class="btn btn-primary " type="submit"><b>Topic Identification</b> </button>
+          <button name="showurls" class="btn btn-primary" type="submit"><b>See URL's</b></button>
+          <button name="showmentions" class="btn btn-primary" type="submit"><b>See Mentions</b></button>
+          <button name="showtestgraph" class="btn btn-primary" type="submit"><b>Show test plot</b></button>
+        </div>
+      </form>
+    </div>
+    <div class="col-lg-9">
+      <h2 style="color: red;">{{errormessage}}</h2>
+      <h2 style="color: red;">{{nohashtagsmessage}}</h2>
 <!--
 <img src="{% static '{{imagepath}}' %}" alt="not successful">
 <h2>{{imagepath}}</h2>
 <img src="{% static 'business/assets/visualize/temp.png' %}" alt="">
 -->
 <!--show frequently used words-->
-{% for word in frequentwords %}
-    <h3>{{word}}</h3>
-{% endfor %}
+    {% for word in frequentwords %}
+      <h3>{{word}}</h3>
+    {% endfor %}
 
-{% for mention in mentions %}
-    <h3>{{mention}}</h3>
-{%endfor%}
+    {% for mention in mentions %}
+      <h3>{{mention}}</h3>
+    {%endfor%}
 
 <!--SHOW HASHTAGS-->
-{% for tag in tags %}
-    <ul style="list-style-position: outside;">
+    {% for tag in tags %}
+      <ul style="list-style-position: outside;">
       <li style="padding-right: 30px;">{{tag}}</li>
-    </ul>
+      </ul>
     <!--<h3 style="color: rgb(41, 40, 124);">{{tag}}</h3>-->
-{% endfor %}
-<br><br>
+    {% endfor %}
+    <br><br>
 
-<div class="row">
-    <div class="col">
-      {% for link in urls %}
-        <a href="{{link}}">{{link}}</a>
-        <br><br><br>
-      {% endfor %}    
-    </div>
-
-    <div class="col">
-      {% for title in linktitles %}
+    <div class="row">
+      <div class="col">
+        {% for link in urls %}
+          <a href="{{link}}">{{link}}</a>
+          <br><br><br>
+        {% endfor %}    
+      </div>
+      <div class="col">
+        {% for title in linktitles %}
           <h6>{{title}}</h6>
           <br><br>
-      {% endfor %}  
+        {% endfor %}  
+      </div>
     </div>
+    </div> 
+  </div>
 </div>
 <!--SCRIPT STARTS-->
 <script>
