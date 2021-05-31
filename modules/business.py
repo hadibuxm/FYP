@@ -11,17 +11,17 @@ from nltk.corpus import stopwords
 
 API = tweepyauth.api
 
-
+"""
 def release_list(a):
    del a[:]
    del a
-
+"""
 # GET FREQUENTLY USED WORDS
 def most_common(userid, no_of_tweets, api = API):
     tokens = []
     stop_words = stopwords.words("english")
     # GET TEXT FROM DATAFRAME
-    for status in tweepy.Cursor(api.user_timeline, screen_name=userid, tweet_mode="extended", exclude_replies=True, include_rts=False).items(no_of_tweets):
+    for status in tweepy.Cursor(api.user_timeline, screen_name=userid, tweet_mode="extended", include_rts=False).items(no_of_tweets):
         # MAKE TOKENS OF TEXT AFTER CONVERTING IT TO LOWERCASE
         text = status.full_text
         t = word_tokenize(text.lower())
