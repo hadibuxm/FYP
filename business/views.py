@@ -3,7 +3,7 @@ creates views for app
 """
 from django.shortcuts import render
 from modules import business
-from modules import searchhash
+from modules import searchhash, compareanalysis
 from modules import visualize
 from . models import CountryList
 # Create your views here.
@@ -27,8 +27,12 @@ def gbfunctions(request):
                 # get tags
                 get_tags = business.get_hashes(userid, no_of_tweets)
                 if len(get_tags) != 0:
+                    lenofhashtags = len(get_tags)
                     context = {'tags': get_tags, 'userid': userid,
-                               'nooftweets': no_of_tweets}
+                               'nooftweets': no_of_tweets,
+                               'lenofhashtagsmsg': 'total no. of hashtags used:' + str(lenofhashtags) ,
+                               'lenofhashtags':int(lenofhashtags / 2),
+                              }
                     return render(request, 'business/gbfunctions.html', context)
                 else:
                     context = {'nohashtagsmessage': 'No hashtag has been used'}
@@ -71,6 +75,41 @@ def sentimentanalysis(request):
 
 
 def comparativeanalysis(request):
+    print(request.POST)
+    if request.method=='POST':
+        business1 = request.POST.get('business1')
+        business2 = request.POST.get('business2')
+        if business1!='' and business2!='':
+            comparedata = compareanalysis.compare(business1, business2)
+            context = {
+                'business1name' : comparedata[0],
+                'business2name' : comparedata[1],
+                'business1description' : comparedata[2],
+                'business2description' : comparedata[3],
+                'business1followers' : comparedata[4],
+                'business2followers' : comparedata[5],
+                'business1url' : comparedata[6],
+                'business2url' : comparedata[7],
+                'input1': business1,
+                'input2' : business2
+            }
+            return render(request, 'business/comparativeanalysis.html', context)
+
+        elif (business1 !='') and (business2 ==''):
+            print('in first elif')
+            context = {'business2error' : 'Please input Business2 Username'}
+            return render(request, 'business/comparativeanalysis.html', context)
+
+        elif (business2!='') and (business1==''):
+            print('in 2nd elif')
+            context = {'bussiness1error' : 'Please input Business1 Username'}
+            return render(request, 'business/comparativeanalysis.html', context)
+
+        else:
+            print('in else')
+            context = {'bothinputserror' : 'Please enter usernames for Business1 and Business2'}
+            return render(request, 'business/comparativeanalysis.html', context)
+        
     return render(request, 'business/comparativeanalysis.html')
 
 

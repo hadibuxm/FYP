@@ -27,7 +27,12 @@
   <link href="{% static 'business/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
+
   <link href="{% static 'business/assets/css/style.css' %}" rel="stylesheet">
+
+  <!--GBFUNCTIONS CSS-->
+  
+  <link href="{% static 'business/assets/css/gbcss.css' %}" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: FlexStart - v1.1.1
@@ -36,7 +41,6 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
-
 <body>
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top">
@@ -53,7 +57,7 @@
           <li class="dropdown"><a href="{% url 'home' %}#services"><span>Services</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="{% url 'growbusiness' %}">Grow Business</a></li>
-              <li><a href="{% url 'comparativeanalysis' %}">Comparative Analysis</a></li>
+              <li><a href="{% url 'comparativeanalysis' %}">Compare</a></li>
               <li><a href="{% url 'sentimentanalysis' %}">Sentiment Analysis</a></li>
               <li><a href="{% url 'topbusiness' %}">Top Business</a></li>
               <li><a href="{% url 'trends' %}">Trends</a></li>
@@ -83,6 +87,8 @@
   <script src="{% static 'business/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
   <!-- Template Main JS File -->
   <script src="{% static 'business/assets/js/main.js' %}"></script>
+
+  <script src="{% static 'business/assets/js/gbfunction.js' %}"></script>
 
 </body>
 </html>

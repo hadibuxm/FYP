@@ -1,0 +1,57 @@
+#gbform{
+    background-color: rgb(211, 237, 238) !important;
+    border-radius: 25px;
+    text-align: center;
+    
+}
+
+#gbintroduction{
+    background-color: rgb(191, 126, 228);
+    border-radius: 20px 230px 500px 20px;
+}
+
+
+/*
+#gbintroduction h2{
+    color: white;
+}
+*/
+#gbtopicidentification{
+    background-color: rgb(110, 185, 219);
+    border-radius: 500px 20px 20px 230px;
+}
+
+#gbhashtag{
+    background-color: rgb(173, 233, 159);
+   border-radius: 20px 230px 500px 20px;
+}
+
+#gbweblinks{
+    background-color: cadetblue;
+     border-radius: 500px 20px 20px 230px;
+}
+#selectbusiness{
+    width: 245px;
+    color: blue;
+    text-align: center;
+}
+
+#selectcategory{
+    width: 245px;
+    color: blue;
+    text-align: center;
+}
+
+#nooftweets{
+    width: 245px;
+    color: red;
+    text-align: center;
+}
+
+#errormessage{
+    color: red !important;
+}
+
+#nohashtagsmessage{
+    color: skyblue !important;
+}

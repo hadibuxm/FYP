@@ -1,3 +1,55 @@
 {% extends "business/base.html" %}
 {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <label for="input1">Business 1</label>
+            <input type="text" class="form-control" id="business1" name="business1">
+            <label for="input2">Business 2</label>
+            <input type="text" class="form-control" id="business2" name="business2">
+          <br><br>  
+        <button type="submit" class="btn btn-outline-primary">Compare</button>
+        </form>
+        </div>
+
+        <div class="col-lg-9">
+            <h1>{{bothinputserror}}</h1>
+            <h2>{{business2error}}</h2>
+            <h2>{{bussiness1error}}</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <h3>{{business1name}}</h3>
+                    <h5>Description: {{business1description}}</h5>
+                    <h4>Followers: {{business1followers}}</h4>
+                    <h6>url: {{business1url}}</h6>
+                    <ul>
+                        Following
+                        {% for people in following1 %}
+                        <li>people</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <h3>{{business2name}}</h3>
+                    <h5>Description: {{business2description}}</h5>
+                    <h4>Followers: {{business2followers}}</h4>
+                    <h6>url: {{business2url}}</h6>
+                    <ul>
+                        Following
+                        {% for people in following2 %}
+                        <li>people</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('business1').value = "{{input1}}";
+    document.getElementById('business2').value = "{{input2}}";
+
+</script>       
 {% endblock content %}
