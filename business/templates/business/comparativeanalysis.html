@@ -18,38 +18,63 @@
             <h1>{{bothinputserror}}</h1>
             <h2>{{business2error}}</h2>
             <h2>{{bussiness1error}}</h2>
+            <div class="table-responsive">          
+            <table class="table table-striped">
+                <thead>
+                    <tr id="businessnames">
+                        <th>{{business1name}}</th>
+                        <th>{{business2name}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="businessdescription" class="bg-info">
+                       <td>{{business1description}}</td>
+                        <td>{{business2description}}</td>
+                    </tr>
+                    <tr id="businessfollowers">
+                        <td>{{business1followers}}</td>
+                        <td>{{business2followers}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            <!--
             <div class="row">
                 <div class="col-lg-6">
                     <h3>{{business1name}}</h3>
-                    <h5>Description: {{business1description}}</h5>
-                    <h4>Followers: {{business1followers}}</h4>
-                    <h6>url: {{business1url}}</h6>
+                    <h6>{{business1description}}</h6>
+                    <h4>{{business1followers}}</h4>
+                    <h5>{{business1url}}</h5>
+                    
                     <ul>
                         Following
                         {% for people in following1 %}
                         <li>people</li>
                         {% endfor %}
                     </ul>
+                    
                 </div>
                 <div class="col-lg-6">
                     <h3>{{business2name}}</h3>
-                    <h5>Description: {{business2description}}</h5>
-                    <h4>Followers: {{business2followers}}</h4>
-                    <h6>url: {{business2url}}</h6>
+                    <h6>{{business2description}}</h6>
+                    <h4>{{business2followers}}</h4>
+                    <h5>{{business2url}}</h5>
+                    
                     <ul>
                         Following
                         {% for people in following2 %}
                         <li>people</li>
                         {% endfor %}
                     </ul>
+                    
                 </div>
             </div>
+        -->
         </div>
     </div>
 </div>
 <script>
     document.getElementById('business1').value = "{{input1}}";
     document.getElementById('business2').value = "{{input2}}";
-
 </script>       
 {% endblock content %}
