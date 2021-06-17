@@ -1,11 +1,16 @@
 #businessnames{
     background-color: cornsilk;
 }
+
 #businessdescription{
     color: white;
 }
 
 #businessfollowers{
     color: red;
-    background-color: whitesmoke;
+    background-color: rgb(209, 209, 178);
+}
+
+#businessurl td{
+    color: white;
 }

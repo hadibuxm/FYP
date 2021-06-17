@@ -16,7 +16,7 @@ function hideselectionboxes(){
   }
 */
 // hide selectionboxes
-  hideselectionboxes()
+  hideselectionboxes();
 
   function showselectionboxes(){
     document.getElementById("1").style.display= "block";
@@ -77,9 +77,9 @@ function hideselectionboxes(){
         document.getElementById("7").value = "@Foodpakistanpk";
         document.getElementById("8").innerHTML = "foodnerd";
         document.getElementById("8").value = "@Foodnerdpk";
-        document.getElementById("8").innerHTML = "cheetay";
-        document.getElementById("8").value = "@cheetaypk";
-        document.getElementById("9").style.display = "none";
+        document.getElementById("9").innerHTML = "cheetay";
+        document.getElementById("9").value = "@cheetaypk";
+        document.getElementById("10").style.display = "none";
         document.getElementById("10").style.display = "none";
 
         /*
@@ -186,6 +186,7 @@ function hideselectionboxes(){
         document.getElementById("6").innerHTML = "ZEM Builders";
         document.getElementById("6").value = "@zembuilders";
         document.getElementById("7").innerHTML = "Lahore Development Authority (LDA).";
+        document.getElementById("7").value = "@LHRDevAuthority";
         document.getElementById("8").style.display = "none";
         document.getElementById("9").style.display = "none";
         document.getElementById("10").style.display = "none";
@@ -215,7 +216,7 @@ function hideselectionboxes(){
         document.getElementById("6").innerHTML = "Mountain Dew";
         document.getElementById("6").value = "@DewPK";
         document.getElementById("7").innerHTML = "Sprite";
-        document.getElementById("7").value = "@Sprite"
+        document.getElementById("7").value = "@Sprite";
         document.getElementById("8").innerHTML = "Fanta";
         document.getElementById("8").value = "@fantapakistan";
         document.getElementById("9").innerHTML = "7UP Pakistan";
@@ -239,7 +240,7 @@ function hideselectionboxes(){
         document.getElementById("6").innerHTML = "Askari Bank Limited";
         document.getElementById("6").value = "@Askari_Bank";
         document.getElementById("7").innerHTML = "Bank Alfalah";
-        document.getElementById("7").value = "@BankAlfalahPAK"
+        document.getElementById("7").value = "@BankAlfalahPAK";
         document.getElementById("8").innerHTML = "Bank AL Habib Limited";
         document.getElementById("8").value = "@BAHLOfficial";
         document.getElementById("9").innerHTML = "MCB Bank Limited";
@@ -290,30 +291,31 @@ function hideselectionboxes(){
         document.getElementById("10").value = "";
         break;
       
-      case "smartphones":
+      case "technology":
         showselectionboxes(); // show selection boxes
-        document.getElementById("1").innerHTML = "";
-        document.getElementById("1").value = "";
-        document.getElementById("2").innerHTML = "";
-        document.getElementById("2").value = "";
-        document.getElementById("3").innerHTML = "";
-        document.getElementById("3").value = "";
-        document.getElementById("4").innerHTML = "";
-        document.getElementById("4").value = "";
-        document.getElementById("5").innerHTML = "";
-        document.getElementById("5").value = "";
-        document.getElementById("6").value = "";
-        document.getElementById("7").innerHTML = "";
-        document.getElementById("7").value = "";
-        document.getElementById("8").innerHTML = "";
-        document.getElementById("8").value = "";
-        document.getElementById("9").innerHTML = "";
+        document.getElementById("1").innerHTML = "Microsoft";
+        document.getElementById("1").value = "@Microsoft";
+        document.getElementById("2").innerHTML = "Amazon Inc";
+        document.getElementById("2").value = "@amazon";
+        document.getElementById("3").innerHTML = "Alphabet Inc";
+        document.getElementById("3").value = "@Alphabetlnc";
+        document.getElementById("4").innerHTML = "Tencent";
+        document.getElementById("4").value = "@TencentGlobal";
+        document.getElementById("5").innerHTML = "Facebook";
+        document.getElementById("5").value = "@Facebook";
+        document.getElementById("6").innerHTML = "Alibaba Group";
+        document.getElementById("6").value = "@AlibabaGroup";
+        document.getElementById("7").innerHTML = "Nvidia";
+        document.getElementById("7").value = "@nvidia";
+        document.getElementById("8").innerHTML = "TSMC";
+        document.getElementById("8").value = "@TSMCGlobal";
+        document.getElementById("9").innerHTML = "Samsung";
         document.getElementById("9").value = "";
         document.getElementById("10").innerHTML = "";
         document.getElementById("10").value = "";
         break;
 
-      case "technology":
+      /*case "smartphones":
         showselectionboxes(); // show selection boxes
         document.getElementById("1").innerHTML = "";
         document.getElementById("1").value = "";
@@ -335,6 +337,7 @@ function hideselectionboxes(){
         document.getElementById("10").innerHTML = "";
         document.getElementById("10").value = "";
         break;
-      default:
+      */
+        default:
         hideselectionboxes(); // call function for hiding selection boxes
   }}

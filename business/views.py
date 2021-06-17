@@ -21,7 +21,7 @@ def gbfunctions(request):
             userid = str(request.POST.get('selectbusiness'))
             no_of_tweets = int(request.POST.get('nooftweets'))
 
-            # click show tags button
+            # if user has selected showtangs and
             if 'showtags' in request.POST and userid != 'Select Business':
                 #print(request.POST)
                 # get tags
@@ -65,7 +65,8 @@ def gbfunctions(request):
             else:
                 return render(request, 'business/gbfunctions.html', {'errormessage': 'Please Enter Correct Data'})
         except:
-            return render(request, 'business/gbfunctions.html', {'errormessage': 'Please enter Correct Data'})
+            context = {'errormessage' : 'Select Options Correctly'}
+            return render(request, 'business/gbfunctions.html', context)
     else:
         return render(request, 'business/gbfunctions.html')
 
@@ -147,12 +148,15 @@ def trends(request):
 
         # if user has selected trending topoic and want to see tweets
         elif 'selecttopic' and 'seetweets' in request.POST:
+            country_name = str(request.POST.get('countryname')).capitalize()
             # get selected topic name
             trending_topic = request.POST.get('selecttopic')
 
-            trending_tweets = searchhash.get_tweets(
-                request.POST.get('selecttopic'))
-            return render(request, 'business/trends.html', {'selected': trending_topic, 'trendingtweets':  trending_tweets})
+            trending_tweets = searchhash.get_tweets(request.POST.get('selecttopic'))
+            context = {'selected': trending_topic,
+                       'trendingtweets':  trending_tweets,
+                        'countryname' : country_name}
+            return render(request, 'business/trends.html', context)
     # elif request.method =="GET":
     #	return render(request, 'business/hash.html',{'selected': request.Get.get('selectionvalue')})
 

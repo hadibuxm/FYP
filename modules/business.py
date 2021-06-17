@@ -62,11 +62,11 @@ def get_hashes(userid, no_of_tweets, api = API):
         hashtags += regexp_tokenize(status.full_text, hashpattern)
 
     # return list of hashtags
-    hashcount = Counter(hashtags)
+    hashcount = Counter(hashtags).most_common()
     new_hash = list()
     for each_hash in hashcount:
     #new_hash.append(each_hash[0] + ': ' + str(each_hash[1]))
-        new_hash.append(each_hash + ' : ' + str(hashcount[each_hash]))
+        new_hash.append(each_hash[0] + ' : ' + str(each_hash[1]))
     return new_hash
 
 # MENTIONS FUNCTION

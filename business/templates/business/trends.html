@@ -2,32 +2,37 @@
 {% load static %}
 
 {% block content %}
+<!--
 <h1>Wel come to Hash Tags</h1>
-<p>Here you will see 50 top trending topics of Country</p>
+-->
+<p>Here you will see top 50 trending topics of Country</p>
+<!--
 <h3>Use Search below For Topics in Any Country</h3>
-
+-->
 <!--FORM STARTS-->
 <form method="post">
   {% csrf_token %}
   <!--INPUT AND SEARCH TOPIC-->
   <div class="input-group mb-3">
-    <input type="text" class="form-control" name = "countryname" placeholder="Search">
+    <i class="material-icons" style="font-size:40px;">search</i>
+    <input id="countryname" type="text" class="form-control" name = "countryname" placeholder="Search: Country / City...">
     <div class="input-group-append">
-      <button class="btn btn-outline-primary" type="submit">Search Trends</button>
+      <button class="btn btn-outline-primary" type="submit">Search</button>
     </div>
   </div>
 
 <!--SHOW TRENDING TOPICS-->
   <h2 style="color: red;">{{error}}</h2>
   <h3 id="trendheadline">Trending Topics in {{countryname}}</h3>
-  <select onchange="changed()" title="my_options" id="selecttag" class="form-select" aria-label="Default select example" name="selecttopic" id="tagstopics">
+  <select title="my_options" id="selecttag" class="form-select" aria-label="Default select example" name="selecttopic" id="tagstopics">
     <option selected>Select Trend / Topic</option>
     {% for topic in topics %}
     <option value = "{{topic}}" id="{{forloop.counter}}">{{topic}}</option>
     {% endfor %}
   </select>
-
+  <!--
   <input name="selectionvalue" id="st" style="display: none;" type="text" value="none">
+  -->
   <!--
   <button id="analysisbutton" onclick="clickanalysebutton()" type="submit" class="btn btn-outline-success">Perform Data Analysis</button>
   -->
@@ -53,12 +58,12 @@
   <h6>{{p}}</h6>
 {% endfor %}
 -->
-
-
 <h2>{{fusedwords}}</h2>
 <h2>{{wordcount}}</h2>
+
 <!--SCRIPT-->
 <script>
+  document.getElementById("countryname").value =  "{{countryname}}";
   if(!'{{topics}}')
   {
     if(!'{{seetweets}}' && !'{{fusedwords}}' && !'{{wordcount}}')
@@ -80,9 +85,11 @@
 
   }
 */
+/*
   function changed(){
     document.getElementById('st').value = document.getElementById('selecttag').value
   }
+*/
   //function performanalysis(){
     //document.getElementById('countryname').disabled = true
   //}
