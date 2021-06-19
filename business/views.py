@@ -17,63 +17,97 @@ def growbusiness(request):
 def gbfunctions(request):
     if request.method == 'POST':
         print(request.POST)
+        #try:
+        userid = str(request.POST.get('selectbusiness'))
+        businesscategory = str(request.POST.get('selectcategory'))
+        nooftweets = str(request.POST.get('nooftweets'))
         try:
-            userid = str(request.POST.get('selectbusiness'))
-            no_of_tweets = int(request.POST.get('nooftweets'))
+            no_of_tweets = int(nooftweets)
+            if userid == 'Select Business' and businesscategory != 'Select Business Category':
+                    context = {'errormessage': 'You forgot to select Business Name'}
+                    return render(request, 'business/gbfunctions.html', context)
 
-            # if user has selected showtangs and
-            if 'showtags' in request.POST and userid != 'Select Business':
-                #print(request.POST)
-                # get tags
-                get_tags = business.get_hashes(userid, no_of_tweets)
-                if len(get_tags) != 0:
-                    lenofhashtags = len(get_tags)
-                    context = {'tags': get_tags, 'userid': userid,
+            elif userid == 'Select Business' and businesscategory == 'Select Business Category':
+                context = {'errormessage' : 'You Forgot to select Business Name and Category'}
+                return render(request, 'business/gbfunctions.html', context)
+
+            elif userid == 'Select Business' and businesscategory != 'Select Business Category':
+                context = {'errormessage': 'You Forgot to select Business Category'}
+                return render(request, 'business/gbfunctions.html', context)
+            else:
+                if 'showtags' in request.POST: #and userid != 'Select Business' and businesscategory != 'Select Business Category':    
+                    get_tags = business.get_hashes(userid, no_of_tweets)
+                    if len(get_tags) != 0:
+                        lenofhashtags = len(get_tags)
+                        context = {'tags': get_tags, 'userid': userid,
                                'nooftweets': no_of_tweets,
-                               'lenofhashtagsmsg': 'total no. of hashtags used:' + str(lenofhashtags) ,
-                               'lenofhashtags':int(lenofhashtags / 2),
-                              }
-                    return render(request, 'business/gbfunctions.html', context)
-                else:
-                    context = {'nohashtagsmessage': 'No hashtag has been used'}
-                    return render(request, 'business/gbfunctions.html', context)
+                               'lenofhashtagsmsg': 'total no. of hashtags used:' + str(lenofhashtags),
+                               'lenofhashtags': int(lenofhashtags / 2),
+                               }
+                        return render(request, 'business/gbfunctions.html', context)
+                    else:
+                        context = {'nohashtagsmessage': 'No hashtag has been used'}
+                        return render(request, 'business/gbfunctions.html', context)
 
             # click show frequenly used words button
-            elif 'showfwords' in request.POST:
-                get_words = business.most_common(userid, no_of_tweets)
-                return render(request, 'business/gbfunctions.html', {'frequentwords': get_words, 'userid': userid, 'nooftweets': no_of_tweets})
+                elif 'showfwords' in request.POST:
+                    get_words = business.most_common(userid, no_of_tweets)
+                    return render(request, 'business/gbfunctions.html', {'frequentwords': get_words, 'userid': userid, 'nooftweets': no_of_tweets})
              #click show urls button
-            elif 'showurls' in request.POST:
-                get_urls = business.get_urls(userid, no_of_tweets)
-                context = {'urls': get_urls[0], 'linktitles': get_urls[1],
+                elif 'showurls' in request.POST:
+                    get_urls = business.get_urls(userid, no_of_tweets)
+                    context = {'urls': get_urls[0], 'linktitles': get_urls[1],
                            'userid': userid, 'nooftweets': no_of_tweets}
-                return render(request, 'business/gbfunctions.html', context)
+                    return render(request, 'business/gbfunctions.html', context)
 
-            elif 'showmentions' in request.POST:
-                mentions = business.get_mentions(userid, no_of_tweets)
-                context = {'mentions': mentions}
-                return render(request, 'business/gbfunctions.html', context)
+                elif 'showmentions' in request.POST:
+                    mentions = business.get_mentions(userid, no_of_tweets)
+                    context = {'mentions': mentions}
+                    return render(request, 'business/gbfunctions.html', context)
             # if input boxe/boxes are empty
-            elif 'showtestgraph' in request.POST:
-                visualize.testplot(userid, no_of_tweets)
+                elif 'showtestgraph' in request.POST:
+                    visualize.testplot(userid, no_of_tweets)
                 #imagepath = "business/assets/visualize/temp.png"
-                imagepath = "business/assets/visualize/temp.png"
-                context = {'imagepath': imagepath}
-                print(request.POST)
+                    imagepath = "business/assets/visualize/temp.png"
+                    context = {'imagepath': imagepath}
+                    print(request.POST)
+                    return render(request, 'business/gbfunctions.html', context)
+
+        except:
+            
+            if userid == 'Select Business' and businesscategory != 'Select Business Category' and nooftweets != 'Select No of Tweets':
+                context = {
+                    'errormessage': 'Please Select Business Name',
+                    'nooftweets' : nooftweets,
+                    'businesscategory' : businesscategory,
+                }
+                return render(request, 'business/gbfunctions.html', context)
+            
+            elif userid != 'Select Business' and businesscategory != 'Select Business Category' and nooftweets == 'Select No of Tweets':
+                context = {
+                    'errormessage': 'You Forgot to Select No. of Tweets'}
                 return render(request, 'business/gbfunctions.html', context)
 
-            else:
-                return render(request, 'business/gbfunctions.html', {'errormessage': 'Please Enter Correct Data'})
-        except:
-            context = {'errormessage' : 'Select Options Correctly'}
-            return render(request, 'business/gbfunctions.html', context)
+            elif userid != 'Select Business' and businesscategory == 'Select Business Category' and nooftweets == 'Select No of Tweets':
+                context = {
+                    'errormessage': 'You Forgot to Select Business Category and No. of Tweets'}
+                return render(request, 'business/gbfunctions.html', context)
+
+            elif userid == 'Select Business' and businesscategory != 'Select Business Category' and nooftweets == 'Select No of Tweets':
+                context = {
+                    'errormessage': 'You Forgot to Select Business Name and No. of Tweets'}
+                return render(request, 'business/gbfunctions.html', context)
+
+            elif userid == 'Select Business' and businesscategory == 'Select Business Category' and nooftweets == 'Select No of Tweets':
+                context = {'errormessage': 'You have not selected any option'}
+                return render(request, 'business/gbfunctions.html', context)
+
     else:
         return render(request, 'business/gbfunctions.html')
 
 
 def sentimentanalysis(request):
     return render(request, 'business/sentimentanalysis.html')
-
 
 def comparativeanalysis(request):
     print(request.POST)
@@ -113,10 +147,8 @@ def comparativeanalysis(request):
         
     return render(request, 'business/comparativeanalysis.html')
 
-
 def topbusiness(request):
     return render(request, 'business/topbusiness.html')
-
 
 def trends(request):
     # check if user has submitted form

@@ -1,3 +1,5 @@
+
+
 function setoptions(brands, brands_id) {
   for (let i = 1; i <= brands.length; i++) {
           document.getElementById(i.toString()).innerHTML = brands[i-1];
