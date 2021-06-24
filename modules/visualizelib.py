@@ -15,4 +15,4 @@ def testplot(userid, no_of_tweets):
         hashtags += regexp_tokenize(status.full_text, hashpattern)
     len_hashtags = len(hashtags)
     plt.hist(len_hashtags)
-    plt.savefig('business/static/business/assets/visualize/temp')
+    plt.savefig('business/static/business/assets/visualize/temp.png')

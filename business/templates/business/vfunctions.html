@@ -1,0 +1,79 @@
+{% extends "business/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div id="gbform" class="col-lg-3">
+        <br>
+        <form action="" method="post" >
+        {% csrf_token %}
+        <div class="form-group">
+            <select onchange= "showbusinesses()" title="Select Business Category" id="selectcategory" class="form-select" aria-label="Default select example" name="selectcategory" autofocus>
+              <option selected>Select Business Category</option>
+              <option value = "clothing">Clothing</option>
+              <!--
+              <option value="smartphones">Smart Phones</option>
+              -->
+              <option value="technology">Technology</option>
+              <option value="foodonline">Food Online</option>
+              <option value="mobilepayment">Mobile Payment</option>
+              <option value="onlineshopping">Online Shopping</option>
+              <option value="footwear">Footwear</option>
+              <option value="property">Property</option>
+              <option value="beverage">Beverage</option>
+              <option value="banks">Banks</option>
+              <option value="mobileoperator">Cellular Companies</option>
+              <option value="automobiles">Automobiles</option>
+              <option value=""></option>
+              <option value=""></option>
+            </select>
+        </div>
+        <br>
+          <div class="form-group">
+            <select title="Select Business" id="selectbusiness" class="form-select" aria-label="Default select example" name="selectbusiness" autofocus>
+              <option selected>Select Business</option>
+              <option value="" id="1"></option>
+              <option value="" id="2"></option>
+              <option value="" id="3"></option>
+              <option value="" id="4"></option>
+              <option value="" id="5"></option>
+              <option value="" id="6"></option>
+              <option value="" id="7"></option>
+              <option value="" id="8"></option>
+              <option value="" id="9"></option>
+              <option value="" id="10"></option>
+            </select>
+          </div>
+          <div class="form-group">
+             <br>
+            <select title="Select No of Tweets" id="nooftweets" class="form-select" aria-label="Default select example" name="nooftweets" autofocus>
+              <option selected>Select No of Tweets</option>
+              <option value="100">100</option>
+              <option value="300">300</option>
+              <option value="500">500</option>
+            </select>
+          </div>
+  <!--SELECT MENU-->
+        
+        
+        
+  <!--INPUT AND SEARCH TOPIC-->
+  <!--s
+  <h3>Enter Twitter id of Business</h3>-->
+  <!--
+  <input type="text" name="userid" id="userid", value=""> 
+  -->
+       
+        <!--<input style="width: 230px;" type="text" name="nooftweets" id="", value="">-->
+        <br>
+        <div class="btn-group-vertical btn-group-lg btn-group-justified" >
+          <button name="showtestgraph" class="btn btn-dark" type="submit"><b>Show test plot</b></button>
+        </div>
+      </form>
+        </div>
+    <div class="col-lg-9">
+        hey boy
+    </div>
+    </div>
+</div>
+      
+{% endblock content %}

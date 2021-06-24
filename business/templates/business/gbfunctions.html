@@ -86,7 +86,9 @@
 <!--
 <img src="{% static '{{imagepath}}' %}" alt="not successful">
 <h2>{{imagepath}}</h2>
-<img src="{% static 'business/assets/visualize/temp.png' %}" alt="">
+-->
+<!--
+<img src="{% static 'business/assets/visualize/temp.png' %}" alt="image not found">
 -->
 <!--show frequently used words-->
       {% for word in frequentwords %}
@@ -94,11 +96,17 @@
       {% endfor %}
 
       {% for mention in mentions %}
-      <h3>{{mention}}</h3>
+      <h5>{{mention}}</h5>
       {%endfor%}
 
 <!--SHOW HASHTAGS-->
-      <h2>{{lenofhashtagsmsg}}</h2>
+      <h4><strong>{{userid}}</strong></h4>
+      <br>
+      <h5><strong>Description : </strong>{{userdesription}}</h5>
+      <br>
+      <h5><strong>{{userid}}</strong>  has targeted <strong>{{userfollowers}} followers</strong>  with following hashtags</h5>
+      <br>
+      <h5><strong>{{lenofhashtagsmsg}}</strong></h5>
       <div class="row">
         <div class="col-lg-6 mx-auto">
           {% for tag in tags%}
@@ -123,7 +131,6 @@
       {% endfor %}
         </div>
       </div>
-      <br><br>
       <div class="row">
         <div class="col">
           {% for link in urls %}

@@ -1,0 +1,84 @@
+{% extends "business/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <label for="input1">Business 1</label>
+            <input type="text" class="form-control" id="business1" name="business1">
+            <label for="input2">Business 2</label>
+            <input type="text" class="form-control" id="business2" name="business2">
+          <br><br>  
+        <button type="submit" class="btn btn-outline-primary">Compare</button>
+        </form>
+        </div>
+
+        <div class="col-lg-9">
+            <h1>{{bothinputserror}}</h1>
+            <h2>{{business2error}}</h2>
+            <h2>{{bussiness1error}}</h2>
+            <div class="table-responsive">          
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr id="businessnames">
+                        <th>{{business1name}}</th>
+                        <th>{{business2name}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="businessdescription" class="bg-info">
+                       <td>{{business1description}}</td>
+                        <td>{{business2description}}</td>
+                    </tr>
+                    <tr id="businessfollowers">
+                        <td>{{business1followers}}</td>
+                        <td>{{business2followers}}</td>
+                    </tr>
+                    <tr id="businessurl" class="bg-dark">
+                        <td>{{business1url}}</td>
+                        <td>{{business2url}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            <!--
+            <div class="row">
+                <div class="col-lg-6">
+                    <h3>{{business1name}}</h3>
+                    <h6>{{business1description}}</h6>
+                    <h4>{{business1followers}}</h4>
+                    <h5>{{business1url}}</h5>
+                    
+                    <ul>
+                        Following
+                        {% for people in following1 %}
+                        <li>people</li>
+                        {% endfor %}
+                    </ul>
+                    
+                </div>
+                <div class="col-lg-6">
+                    <h3>{{business2name}}</h3>
+                    <h6>{{business2description}}</h6>
+                    <h4>{{business2followers}}</h4>
+                    <h5>{{business2url}}</h5>
+                    
+                    <ul>
+                        Following
+                        {% for people in following2 %}
+                        <li>people</li>
+                        {% endfor %}
+                    </ul>
+                    
+                </div>
+            </div>
+        -->
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('business1').value = "{{input1}}";
+    document.getElementById('business2').value = "{{input2}}";
+</script>       
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% extends 'business/base.html'%}
+{% load static %}
+{% block content%}
+<div>
+    <br>
+    <a href="{% url 'gbfunctions' %}" class="btn btn-primary btn-block"><strong> Grow Business</strong></a>
+    <br><br> 
+    <a href="{% url 'vfunctions' %}" class="btn btn-primary btn-block"><strong>Visualization</strong></a>
+    <br><br>
+    <a href="{% url 'cfunctions' %}" class="btn btn-primary btn-block"><strong>Comparative Analysis</strong></a> 
+    <br><br>
+    <a href="{% url 'sfunctions' %}"  class="btn btn-primary btn-block"><strong>Sentiment Analysis</strong></a> 
+    <br><br>
+    <a href="{% url 'tbfunctions' %}" class="btn btn-primary btn-block"><strong>Top Business</strong></a> 
+    <br><br>
+    <a href="{% url 'trends' %}" class="btn btn-primary btn-block"><strong>Trends</strong></a>
+</div>
+    
+{% endblock content %}

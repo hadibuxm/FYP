@@ -5,7 +5,7 @@ import tweepy
 from nltk.tokenize import regexp_tokenize, word_tokenize
 # from collections import Counter
 from modules import tweepyauth
-from modules import reurl, linktitle
+from modules import reurl
 from collections import Counter
 from nltk.corpus import stopwords
 

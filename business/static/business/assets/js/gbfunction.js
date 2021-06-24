@@ -1,5 +1,3 @@
-
-
 function setoptions(brands, brands_id) {
   for (let i = 1; i <= brands.length; i++) {
           document.getElementById(i.toString()).innerHTML = brands[i-1];
@@ -270,7 +268,7 @@ function hideselectionboxes(){
         ]; 
 
         const property_id = [
-          "@BahriaTownOffic", "@DHAToday", "@ABDBuilders", "Habib Rafiq", "@alibuilders", "@zembuilders", 
+          "@BahriaTownOffic", "@DHAToday", "@ABDBuilders", "@habibrafiqpvt", "@alibuilders", "@zembuilders", 
           "@LHRDevAuthority"
         ];
         setoptions(property, property_id);
@@ -479,3 +477,9 @@ function hideselectionboxes(){
         default:
         hideselectionboxes(); // call function for hiding selection boxes
   }}
+/*
+if(document.getElementById("selectcategory").value!='Select Business Category' & document.getElementById('nooftweets').value !='Select No of Tweets'){
+
+  document.getElementById("selectbusiness").value = '{{option_value}}';
+}
+*/

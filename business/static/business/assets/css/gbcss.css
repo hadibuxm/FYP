@@ -1,3 +1,10 @@
+.gh2{
+    font-size: 24px;
+    font-weight: 700;
+    color: #012970;
+    font-family: "Nunito", sans-serif;
+}
+
 #gbform{
     background-color: rgb(211, 237, 238) !important;
     border-radius: 25px;
@@ -6,7 +13,7 @@
 }
 
 #gbintroduction{
-    background-color: rgb(191, 126, 228);
+    background-color: rgb(239, 234, 241);
     border-radius: 20px 230px 500px 20px;
 }
 
@@ -27,7 +34,7 @@
 }
 
 #gbweblinks{
-    background-color: cadetblue;
+    background-color: rgb(226, 122, 221);
      border-radius: 500px 20px 20px 230px;
 }
 #selectbusiness{
