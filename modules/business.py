@@ -22,6 +22,7 @@ def get_title(link):
 API = tweepyauth.api
 
 """
+# function for releasing memory
 def release_list(a):
    del a[:]
    del a
@@ -72,7 +73,6 @@ def get_hashes(userid, no_of_tweets, api = API):
     for status in tweepy.Cursor(api.user_timeline, screen_name=userid, tweet_mode="extended").items(no_of_tweets):
         # get hashtags and save in list named hashtags 
         hashtags += regexp_tokenize(status.full_text, hashpattern)
-
     # return list of unique hashtags with no. of times they have been used
     hashcount = Counter(hashtags).most_common()
     new_hash = list()

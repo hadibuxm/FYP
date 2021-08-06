@@ -46,13 +46,16 @@ def gbfunctions(request):
                         
                         if len(get_tags) != 0:
                             lenofhashtags = len(get_tags[0])
-                            context = {'tags': get_tags[0], 
+                            context = {
+                               'tags': get_tags[0], 
                                'userid': userid,
                                'nooftweets': no_of_tweets,
-                               'lenofhashtagsmsg': 'total no. of hashtags used:' + str(lenofhashtags),
+                               'lenofhashtagsmsg': 'Unique Hashtags: '+ str(lenofhashtags),
                                'lenofhashtags': int(lenofhashtags / 2),
                                'userdesription' : get_tags[1],
-                               'userfollowers' : get_tags[2]
+                               'userfollowers' : get_tags[2],
+                               'display_message' : 'yes',
+                                'mostusedhashtag' : get_tags[0][0],
                                }
                             return render(request, 'business/gbfunctions.html', context)
                         else:
@@ -64,8 +67,14 @@ def gbfunctions(request):
                         return render(request, 'business/gbfunctions.html', context)
             # click show frequenly used words button
                 elif 'showfwords' in request.POST:
-                    get_words = business.most_common(userid, no_of_tweets)
-                    return render(request, 'business/gbfunctions.html', {'frequentwords': get_words, 'userid': userid, 'nooftweets': no_of_tweets})
+                    try:
+                        get_words = business.most_common(userid, no_of_tweets)
+                        return render(request, 'business/gbfunctions.html', {'frequentwords': get_words, 'userid': userid, 'nooftweets': no_of_tweets})
+                    except:
+                        context = {
+                            'errormessage': 'ohh,server not responding, try again in some time'}
+                        return render(request, 'business/gbfunctions.html', context)
+                        
              #click show urls button
                 elif 'showurls' in request.POST:
                     try:
@@ -234,7 +243,21 @@ def visualize(request):
     return render(request, 'business/visualize.html')
 
 def vfunctions(request):
-    return render(request, 'business/vfunctions.html')
+    if request.method == 'POST':
+        try:
+            if 'showtestgraph' in request.POST:
+            # get business name
+                userid = str(request.POST.get('selectbusiness')) # get business name
+                nooftweets = int(request.POST.get('nooftweets'))  # get no. of tweets
+                chart = visualizelib.histplot(userid, nooftweets)
+                return render(request, 'business/vfunctions.html', {'chart' : chart, 'testmessage' : 'in if'})
+        except:
+            context = {
+                    'errormessage': 'ohh,server not responding, try again in some time'}
+            return render(request, 'business/vfunctions.html', context)
+
+    else:    
+        return render(request, 'business/vfunctions.html', {'testmessage' : 'in else'})
 
 def allfunctions(request):
     return render(request, 'business/allfunctions.html')
