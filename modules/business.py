@@ -91,8 +91,11 @@ def get_mentions(userid, no_of_tweets, api = API):
         # get hashtags and save in list named hashtags 
         mentions += regexp_tokenize(status.full_text, mentionspattern)
     mentioncount = Counter(mentions)
+    return mentioncount
+    """
     new_mentions = list()
-    for each_hash in mentioncount:
+    for each_mention in mentioncount:
     #new_hash.append(each_hash[0] + ': ' + str(each_hash[1]))
-        new_mentions.append(each_hash + ' : ' + str(mentioncount[each_hash]))
+        new_mentions.append(each_mention + ' : ' + str(mentioncount[each_mention]))
     return new_mentions
+    """

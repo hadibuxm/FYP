@@ -66,16 +66,20 @@
         <!--<input style="width: 230px;" type="text" name="nooftweets" id="", value="">-->
         <br>
         <div class="btn-group-vertical btn-group-lg btn-group-justified" >
-          <button name="showtestgraph" class="btn btn-dark" type="submit"><b>Show test plot</b></button>
+          <button name="hashtags" class="btn btn-dark" type="submit"><b>Hashtags</b></button>
+          <button name="frequency" class="btn btn-dark" type="submit"><b>Frequency Distribution</b></button>
+          <button name="barchart" class="btn btn-dark" type="submit"><b>Mentions Bar Chart</b></button>
+          <button name="wordcloud" class="btn btn-dark" type="submit"><b>Word Cloud</b></button>
         </div>
       </form>
         </div>
     <div class="col-lg-9">
-      hey boy
-      <img src="data:image/png;base64,{{ chart|safe }}" alt="not found",>
+      <img src="data:image/png;base64,{{ hashchart|safe }}" class="img-fluid">
+      <img src="data:image/png;base64,{{ barchart|safe }}" class="img-fluid">
+      <img src="data:image/png;base64,{{ freqchart|safe }}" class="img-fluid">
       <h1>{{testmessage}} {{errormessage}}</h1>
     </div>
-    </div>
+  </div>
 </div>
       
 {% endblock content %}
