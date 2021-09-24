@@ -1,5 +1,6 @@
 {% extends "business/base.html" %}
 {% block content %}
+<br><br><br><br>
 <div class="container">
     <div class="row">
         <div class="col-lg-3">
@@ -14,9 +15,12 @@
           <br><br>  
         <button type="submit" class="btn btn-outline-primary">Compare</button>
         </form>
+
+      <br>
+      <button onclick="generate_pdf()" class="btn btn-outline-success ">Generate PDF</button>
         </div>
 
-        <div class="col-lg-9">
+        <div class="col-lg-9 canvas_div_pdf">
             <h1>{{bothinputserror}}</h1>
             <h2>{{business2error}}</h2>
             <h2>{{bussiness1error}}</h2>
@@ -56,6 +60,7 @@
                         <td>{{business2url}}</td>
                     </tr>
                     -->
+                    
                      <tr id="hashtags">
                         <td><strong>Hashtags</strong></td>
                         <td>{{business1hashtag}}</td>
@@ -70,6 +75,36 @@
                         <td><strong>RETWEETS</strong></td>
                         <td>{{business1retweets}}</td>
                         <td>{{business2retweets}}</td>
+                    </tr>
+                    <tr id="mostlikedtweet">
+                        <td><strong>MOST LIKED TWEET</strong></td>
+                        <td>{{business1mostlikeddate}}</td>
+                        <td>{{business2mostlikedtweetdate}}</td>
+                    </tr>
+                    <tr id="mostlikedtweetlikes">
+                        <td>Likes</td>
+                        <td>{{business1mostlikedltweetikes}}</td>
+                        <td>{{business2mostlikedtweetlikes}}</td>
+                    </tr>
+                    <tr id="mostlikedtweettext">
+                        <td>Content</td>
+                        <td>{{business1mostlikedtweettext}}</td>
+                        <td>{{business2mostlikedtweettext}}</td>
+                    </tr>
+                    <tr id="mostretweetedtweet">
+                        <td><strong>MOST RETWEETED TWEET</strong></td>
+                        <td>{{business1mostretweetedtweet}} {{business1mostretweetedtweettext}}</td>
+                        <td>{{business2mostretweetedtweet}} {{business2mostlikedtweettext}}</td>
+                    </tr>
+                      <tr id="mostretweetedtweetlikes">
+                        <td>Likes</td>
+                        <td>{{business1mostretweetedltweetikes}}</td>
+                        <td>{{business2mostretweetedtweetlikes}}</td>
+                    </tr>
+                    <tr id="mostlikedtweettext">
+                        <td>Content</td>
+                        <td>{{business1mostretweetedtweettext}}</td>
+                        <td>{{business2mostretweetedtweettext}}</td>
                     </tr>
                     <!--
                     <tr id="latestpost">

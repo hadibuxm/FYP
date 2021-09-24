@@ -1,6 +1,8 @@
 {% extends 'business/base.html'%}
 {% load static %}
 {% block content%}
+
+    <br><br><br><br>
 <div class="container">
   <div class="row">
     <div id="gbform" class="col-lg-3">
@@ -8,6 +10,8 @@
       <form name="gbform"  action="" method="post" onsubmit="return form_validation()">
         {% csrf_token %}
         <div class="form-group">
+          <input type="text" class="form-control" id="username" name="username" placeholder="goto twitter, copy username" autofocus>
+          <br>
             <select onchange= "showbusinesses()" title="Select Business Category" id="selectcategory" class="form-select" aria-label="Default select example" name="selectcategory" autofocus>
               <option selected>Select Business Category</option>
               <option value = "clothing">Clothing</option>
@@ -25,7 +29,6 @@
               <option value=""></option>
             </select>
         </div>
-        <br>
           <div class="form-group">
             <select title="Select Business" id="selectbusiness" class="form-select" aria-label="Default select example" name="selectbusiness" autofocus>
               <option selected>Select Business</option>
@@ -42,7 +45,6 @@
             </select>
           </div>
           <div class="form-group">
-             <br>
             <select title="Select No of Tweets" id="nooftweets" class="form-select" aria-label="Default select example" name="nooftweets" autofocus>
               <option selected>Select No of Tweets</option>
               <option value="100">100</option>
@@ -50,8 +52,7 @@
               <option value="500">500</option>
             </select>
           </div>
-       
-        <br>
+      
         <div class="btn-group-vertical btn-group-lg btn-group-justified" >
           <button name="showtags" class="btn btn-primary" type = "submit"><b>Show Hashtags</b> </button>
           <button name="showfwords"  class="btn btn-success " type="submit"><b>Topic Identification</b></button>
@@ -59,30 +60,56 @@
           <button name="showmentions" class="btn btn-info" type="submit"><b>See Mentions</b></button>
         </div>
       </form>
-      <br><br>
+      <br>
+      <button onclick="generate_pdf()" class="btn btn-outline-success ">Generate PDF</button>
     </div>
 
-    <div class="col-lg-9">
+    <div class="canvas_div_pdf" class="col-lg-9">
+      <p id="gbinstructions">
+        <h2 id="instructionheading">Instructions</h2>
+        <ul id="instructionslist">
+          <li><strong>Javascript of browser must be enabled</strong>
+            <ul>
+              <li>form validation will not be done</li>
+              <li>PDF generation may give errors</li>
+            </ul>
+          </li>
+          <br>
+          <li><strong>You have two options to select business for analysis</strong></li><br>
+            <ol>
+              <li>Either goto twitter and copy username, Paste Username in input box</li><br>
+              <li>Select Category and than Business</li>
+            </ol>
+            <br>
+          <li><strong>Select Number of tweets you want to run analysis</strong></li><br>
+          <li><strong>Click Button for Analysis you want</strong></li><br>
+          <li><strong>Generate PDF button will create PDF for you</strong></li>
+        </ul>
+      </p>
       <h2 id="errormessage">{{errormessage}}</h2>
       <h2 id="nohashtagsmessage">{{nohashtagsmessage}}</h2>
       <h2>{{businessnameerror}}</h2>
       <h2>{{nooftweetserror}}</h2>
-
+      
+      <!--FREQUENTLY USED KEYWORDS-->
       {% for word in frequentwords %}
       <h3>{{word}}</h3>
       {% endfor %}
 
-      {% for mention in mentions %}
-      <h5>{{mention}}</h5>
-      {%endfor%}
-
+     
       <h4 id="userid"><strong>{{userid}}</strong></h4><br>
       <h5 id="description">-- <strong>Description : </strong>{{userdesription}}</h5>
       <h5 id="nooftweetsinfo">-- Number of Tweets <strong>{{nooftweets}}</strong></h5>
       <h5 id="followersmsg">-- Followers: <strong>{{userfollowers}}</strong></h5>
       <h5 id="lenofhashtagsmsg">-- <strong>{{lenofhashtagsmsg}}</strong></h5>
       <h5 id="mostusedhashtag">-- Mostly used hashtag: <strong>{{mostusedhashtag}}</strong></h5>
+      <h5 id="mostusedmention">--mostly mentioned:<strong>{{mostusedmention}} </h5>
       <h6 id="numbernote">-- number with each hashtag tells how many times it has been used in <strong>{{nooftweets}}</strong> tweets.</h6>
+      <!--MENTIONS-->
+      {% for mention in mentions %}
+      <h5>{{mention}}</h5>
+      {% endfor %}
+
       <div class="row">
         <div class="col-lg-6 mx-auto">
           {% for tag in tags%}
@@ -123,7 +150,7 @@
     </div> 
   </div>
 </div>
-
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>-->
 <script>
   document.getElementById("userid").style.display="none";
   document.getElementById("description").style.display="none";
@@ -132,17 +159,35 @@
   document.getElementById("numbernote").style.display = "none";
   document.getElementById("nooftweetsinfo").style.display = "none";
   document.getElementById("mostusedhashtag").style.display = "none";
-  
+  document.getElementById("mostusedmention").style.display = "none";
+  /////////////////////////////////////
+  /*
+  function generate_pdf(){
+    var doc = new jsPDF();
+    var content = document.querySelector("#gbpage");
+    doc.fromHTML(content, 15,15);
+    doc.save("report.pdf");
+  }*/
+
   //FORM VALIDATION
   function form_validation()
   {
     business_category = document.forms["gbform"]["selectcategory"].value;
     business_name = document.forms["gbform"]["selectbusiness"].value;
     no_of_tweets = document.forms["gbform"]["nooftweets"].value;
+    username = document.forms["gbform"]["username"].value;
+    //
+    if(business_category != "Select Business Category" && username!=""){
+      alert("Either input username or select from categories and business, you have selected both");
+      return false;
+    }
+    if(username!="" && no_of_tweets != "Select No of Tweets"){
+      return true;
+    }
     // NO OPTION SELECTED
     if(business_category == "Select Business Category" && business_name == "Select Business" && no_of_tweets == "Select No of Tweets"){
       // BUSINESS NAME AND NUMBER OF TWEETS NOT SELECTED
-      alert("Selec Options");
+      alert("Select Options");
       return false;
     }
     // ONLY BUSINESS CATEGORY SELECTED  
@@ -194,10 +239,23 @@
     document.getElementById("numbernote").style.display = "block";
     document.getElementById("nooftweetsinfo").style.display = "block";
     document.getElementById("mostusedhashtag").style.display = "block";
+    document.getElementById("mostusedmention").style.display = "block";
+  }
+
+  function  hide_instructions() {
+    document.getElementById("instructionheading").style.display = "none";
+    document.getElementById("instructionslist").style.display = "none";
+
   }
 
   if('{{display_message}}'=='yes'){
+    
     display();
+  }  
+ 
+  if('{{display_message}}'=='yes'){
+    
+    hide_instructions();
   }  
 </script>
 

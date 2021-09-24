@@ -27,14 +27,16 @@ def compare(business1, business2, numberoftweets, api=API):
     business2likes = int()
     business1retweets = int()
     business2retweets = int()
-
+    #business1mostlikedltweetikes = list()
+    #business2mostlikedltweetikes = list()
     for status in tweepy.Cursor(api.user_timeline, screen_name=business1, tweet_mode="extended", include_rts=False).items(numberoftweets):
         business1likes += status.favorite_count
         business1retweets += status.retweet_count
-    
+        #business1mostlikedltweetikes.append(business1likes)
     for status in tweepy.Cursor(api.user_timeline, screen_name=business2, tweet_mode="extended", include_rts=False).items(numberoftweets):
         business2likes += status.favorite_count
         business2retweets += status.retweet_count
+        #business2mostlikedltweetikes.append(business2likes)
     # latest tweet
     business1firstweet = api.user_timeline(screen_name = business1, tweet_mode = "extended")[0]
     business2firstweet = api.user_timeline(screen_name = business2, tweet_mode = "extended")[0]

@@ -1,7 +1,5 @@
 
 #gbform{
-    background-color: rgb(211, 237, 238) !important;
-    border-radius: 25px;
     text-align: center;
     
 }
@@ -11,6 +9,9 @@
     border-radius: 20px 230px 500px 20px;
 }
 
+#instructionslist{
+    line-height: 150%;
+}
 
 /*
 #gbintroduction h2{
@@ -21,7 +22,9 @@
     background-color: rgb(110, 185, 219);
     border-radius: 500px 20px 20px 230px;
 }
-
+#username{
+    width: 245px;
+}
 #gbhashtag{
     background-color: rgb(173, 233, 159);
    border-radius: 20px 230px 500px 20px;

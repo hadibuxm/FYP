@@ -30,7 +30,10 @@
   <link href="{% static 'business/assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
   <link href="{% static 'business/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
   <link href="{% static 'business/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
-
+<!--jsPDF-->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
   <!-- Template Main CSS File -->
 
   <link href="{% static 'business/assets/css/style.css' %}" rel="stylesheet">
@@ -81,11 +84,9 @@
     </div>
   </header>
   <!-- End Header -->
-  <div class="container">
-    <br><br><br><br>
     {% block content %}
+
     {% endblock content %}
-  </div>
   <!-- Vendor JS Files -->
   <script src="{% static 'business/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
   <script src="{% static 'business/assets/vendor/aos/aos.js' %}"></script>
