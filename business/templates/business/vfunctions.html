@@ -1,231 +1,258 @@
 {% extends "business/base.html" %}
 {% block content %}
-
-    <br><br><br><br>
+<br><br><br><br>
 <div class="container">
-    <div class="row">
-        <div id="gbform" class="col-lg-3">
-        <br>
-        <form name="vform"  action="" method="post" onsubmit="return form_validation()">
+  <div class="row">
+    <div id="gbform" class="col-lg-3">
+      <br>
+      <form name="vform" action="" method="post" onsubmit="return form_validation()">
         {% csrf_token %}
-          <div class="form-group">
-          <input type="text" class="form-control" id="username" name="username" placeholder="goto twitter, copy username" autofocus>
+        <div class="form-group">
+          <input type="text" class="form-control" id="username" name="username"
+            placeholder="goto twitter, copy username" autofocus>
           <br>
-            <select onchange= "showbusinesses()" title="Select Business Category" id="selectcategory" class="form-select" aria-label="Default select example" name="selectcategory" autofocus>
-              <option selected>Select Business Category</option>
-              <option value = "clothing">Clothing</option>
-              <option value="technology">Technology</option>
-              <option value="foodonline">Food Online</option>
-              <option value="mobilepayment">Mobile Payment</option>
-              <option value="onlineshopping">Online Shopping</option>
-              <option value="footwear">Footwear</option>
-              <option value="property">Property</option>
-              <option value="beverage">Beverage</option>
-              <option value="banks">Banks</option>
-              <option value="mobileoperator">Cellular Companies</option>
-              <option value="automobiles">Automobiles</option>
-              <option value=""></option>
-              <option value=""></option>
-            </select>
-            </div>
-          <div class="form-group">
-            <select title="Select Business" id="selectbusiness" class="form-select" aria-label="Default select example" name="selectbusiness" autofocus>
-              <option selected>Select Business</option>
-              <option value="" id="1"></option>
-              <option value="" id="2"></option>
-              <option value="" id="3"></option>
-              <option value="" id="4"></option>
-              <option value="" id="5"></option>
-              <option value="" id="6"></option>
-              <option value="" id="7"></option>
-              <option value="" id="8"></option>
-              <option value="" id="9"></option>
-              <option value="" id="10"></option>
-            </select>
-          </div>
-          <div class="form-group">
-            <select title="Select No of Tweets" id="nooftweets" class="form-select" aria-label="Default select example" name="nooftweets" autofocus>
-              <option selected>Select No of Tweets</option>
-              <option value="100">100</option>
-              <option value="300">300</option>
-              <option value="500">500</option>
-            </select>
-          </div>
-          <!--
-            <select onchange= "showbusinesses()" title="Select Business Category" id="selectcategory" class="form-select" aria-label="Default select example" name="selectcategory" autofocus>
-              <option selected>Select Business Category</option>
-              <option value = "clothing">Clothing</option>
-              
-              <option value="technology">Technology</option>
-              <option value="foodonline">Food Online</option>
-              <option value="mobilepayment">Mobile Payment</option>
-              <option value="onlineshopping">Online Shopping</option>
-              <option value="footwear">Footwear</option>
-              <option value="property">Property</option>
-              <option value="beverage">Beverage</option>
-              <option value="banks">Banks</option>
-              <option value="mobileoperator">Cellular Companies</option>
-              <option value="automobiles">Automobiles</option>
-              <option value=""></option>
-              <option value=""></option>
-            </select>
+          <select onchange="showbusinesses()" title="Select Business Category" id="selectcategory" class="form-select"
+            aria-label="Default select example" name="selectcategory" autofocus>
+            <option selected>Select Business Category</option>
+            <option value="clothing">Clothing</option>
+            <option value="technology">Technology</option>
+            <option value="foodonline">Food Online</option>
+            <option value="mobilepayment">Mobile Payment</option>
+            <option value="onlineshopping">Online Shopping</option>
+            <option value="footwear">Footwear</option>
+            <option value="property">Property</option>
+            <option value="beverage">Beverage</option>
+            <option value="banks">Banks</option>
+            <option value="mobileoperator">Cellular Companies</option>
+            <option value="automobiles">Automobiles</option>
+            <option value=""></option>
+            <option value=""></option>
+          </select>
         </div>
-        <br>
-          <div class="form-group">
-            <select title="Select Business" id="selectbusiness" class="form-select" aria-label="Default select example" name="selectbusiness" autofocus>
-              <option selected>Select Business</option>
-              <option value="" id="1"></option>
-              <option value="" id="2"></option>
-              <option value="" id="3"></option>
-              <option value="" id="4"></option>
-              <option value="" id="5"></option>
-              <option value="" id="6"></option>
-              <option value="" id="7"></option>
-              <option value="" id="8"></option>
-              <option value="" id="9"></option>
-              <option value="" id="10"></option>
-            </select>
-          </div>
-          <div class="form-group">
-             <br>
-            <select title="Select No of Tweets" id="nooftweets" class="form-select" aria-label="Default select example" name="nooftweets" autofocus>
-              <option selected>Select No of Tweets</option>
-              <option value="100">100</option>
-              <option value="300">300</option>
-              <option value="500">500</option>
-            </select>-->
-  <!--SELECT MENU-->
-        
-        
-        
-  <!--INPUT AND SEARCH TOPIC-->
-  <!--s
-  <h3>Enter Twitter id of Business</h3>-->
-  <!--
-  <input type="text" name="userid" id="userid", value=""> 
-  -->
-       
-        <!--<input style="width: 230px;" type="text" name="nooftweets" id="", value="">-->
-        <br>
-        <div class="btn-group-vertical btn-group-lg btn-group-justified" >
-          <button name="hashtags" class="btn btn-dark" type="submit"><b>Hashtags</b></button>
-          <button name="frequency" class="btn btn-dark" type="submit"><b>Frequency Distribution</b></button>
-          <button name="barchart" class="btn btn-dark" type="submit"><b>Mentions Bar Chart</b></button>
-          <button name="wordcloud" class="btn btn-dark" type="submit"><b>Word Cloud</b></button>
+        <div class="form-group">
+          <select title="Select Business" id="selectbusiness" class="form-select" aria-label="Default select example"
+            name="selectbusiness" autofocus>
+            <option selected>Select Business</option>
+            <option value="" id="1"></option>
+            <option value="" id="2"></option>
+            <option value="" id="3"></option>
+            <option value="" id="4"></option>
+            <option value="" id="5"></option>
+            <option value="" id="6"></option>
+            <option value="" id="7"></option>
+            <option value="" id="8"></option>
+            <option value="" id="9"></option>
+            <option value="" id="10"></option>
+          </select>
         </div>
-        
-      </form>
+        <div class="form-group">
+          <select title="Select No of Tweets" id="nooftweets" class="form-select" aria-label="Default select example"
+            name="nooftweets" autofocus>
+            <option selected>Select No of Tweets</option>
+            <option value="100">100</option>
+            <option value="300">300</option>
+            <option value="500">500</option>
+          </select>
+        </div>
 
+        <br>
+        <div class=" btn-group-justified">
+          <button type="button" class="btn btn-primary dropdown-toggle btn-length" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <b>HASHTAGS</b>
+          </button>
+          <div class="dropdown-menu">
+            <button name="hashtagsbarchart" class="btn btn-warning" type="submit"><b>Bar Chart</b></button>
+            <button name="hashtagspiechart" class="btn btn-warning" type="submit"><b>Pie Chart</b></button>
+          </div>
+          <br><br>
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle btn-length" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <b>MENTIONS</b>
+          </button>
+          <div class="dropdown-menu">
+            <button name="mentionsbarchart" class="btn btn-warning" type="submit"><b>Bar Chart</b></button>
+            <button name="mentionspiechart" class="btn btn-warning" type="submit"><b>Pie Chart</b></button>
+          </div>
+        </div>
+        <br><br>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle btn-length" data-toggle="dropdown"
+            aria-haspopup="false" aria-expanded="false">
+            <b>LIKES</b>
+          </button>
+          <div class="dropdown-menu">
+            <button name="likeschart" class="btn btn-warning" type="submit"><b>Line Chart</b></button>
+          </div>
+        </div>
+        <br><br>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle btn-length" data-toggle="dropdown"
+            aria-haspopup="false" aria-expanded="false">
+            <b>Retweets</b>
+          </button>
+          <div class="dropdown-menu">
+            <button name="retweetschart" class="btn btn-warning" type="submit"><b>Line Chart</b></button>
+          </div>
+        </div>
+        <br><br>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle btn-length" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <b>WORD FREQUENCY</b>
+          </button>
+          <div class="dropdown-menu">
+            <button name="wordfrequencywordcloud" class="btn btn-warning" type="submit"><b>Word
+                Cloud</b></button><br><br>
+            <button name="frequency" class="btn btn-warning btn-length" type="submit"><b>Frequency Distribution
+                Chart</b></button>
+          </div>
+        </div>
+        <br><br>
+        <button class="btn btn-primary btn-length" type="submit" name="bigrams"><b>BIGRAMS</b></button>
+        <div class="btn-group-vertical btn-group-lg btn-group-justified">
+          <button name="hashtags" class="btn btn-outline-primary btn-lenth" type="submit"><b>Hashtags</b></button>
+          <button name="wordcloud" class="btn btn-outline-primary" type="submit"><b>Word Cloud</b></button>
+          <button name="mentionspiechart" class="btn btn-outline-primary" type="submit"><b>Mentions pie
+              chart</b></button>
+          <button name="countplot" class="btn btn-outline-primary" type="submit"><b>Count Plot</b></button>
+          <button name="bigrams" class="btn btn-outline-primary" type="submit"><b>Bigrams</b></button>
+        </div>
+      </form>
       <br>
       <button onclick="generate_pdf()" class="btn btn-outline-success ">Generate PDF</button>
-        </div>
+    </div>
     <div class="col-lg-9 canvas_div_pdf">
       <p id="gbinstructions">
-        <h2 id="instructionheading">Instructions</h2>
-        <ul id="instructionslist">
-          <li><strong>Javascript of browser must be enabled</strong>
-            <ul>
-              <li>form validation will not be done</li>
-              <li>PDF generation may give errors</li>
-            </ul>
-          </li>
-          <br>
-          <li><strong>You have two options to select business for analysis</strong></li><br>
-            <ol>
-              <li>Either goto twitter and copy username, Paste Username in input box</li><br>
-              <li>Select Category and than Business</li>
-            </ol>
-            <br>
-          <li><strong>Select Number of tweets you want to run analysis</strong></li><br>
-          <li><strong>Click Button for Analysis you want</strong></li><br>
-          <li><strong>Generate PDF button will create PDF for you</strong></li>
-        </ul>
+      <h2 id="instructionheading">Instructions</h2>
+      <ul id="instructionslist">
+        <li><strong>Javascript of browser must be enabled</strong>
+          <ul>
+            <li>form validation will not be done</li>
+            <li>PDF generation may give errors</li>
+          </ul>
+        </li>
+        <br>
+        <li><strong>You have two options to select business for analysis</strong></li><br>
+        <ol>
+          <li>Either goto twitter and copy username, Paste Username in input box</li><br>
+          <li>Select Category and than Business</li>
+        </ol>
+        <br>
+        <li><strong>Select Number of tweets you want to run analysis</strong></li><br>
+        <li><strong>Click Button for Analysis you want</strong></li><br>
+        <li><strong>Generate PDF button will create PDF for you</strong></li>
+      </ul>
       </p>
+      <h3>{{userid}}</h3>
+      <img src="data:image/png;base64,{{ hashtagsbarchart|safe}}" id="hashtagsbarchart" class="img-fluid " alt="">
+      <img src="data:image/png;base64,{{ wordfrequencywordcloud|safe}}" id="wordfrequencywordcloud" class="img-fluid "
+        alt="">
+      <img src="data:image/png;base64, {{ likeschart|safe }}" id="likeschart" class="img-fluid" alt="">
+      <img src="data:image/png;base64, {{ bigrams|safe }}" id="bigrams" class="img-fluid" alt="">
+      <img src="data:image/png;base64,{{ retweetschart|safe }}" id="retweetschart" class="img-fluid">
       <img src="data:image/png;base64,{{ hashchart|safe }}" id="hashchart" class="img-fluid">
-      <img src="data:image/png;base64,{{ barchart|safe }}" id="barchart" class="img-fluid">
+      <img src="data:image/png;base64,{{ mentionsbarchart|safe }}" id="mentionsbarchart" class="img-fluid">
+      <img src="data:image/png;base64,{{ mentionspiechart|safe }}" id="mentionspiechart" class="img-fluid">
       <img src="data:image/png;base64,{{ freqchart|safe }}" id="frequency" class="img-fluid">
-      <h1>{{testmessage}} {{errormessage}}</h1>
+      <img src="data:image/png;base64,{{ hashtagspiechart|safe}}" id="hashtagspiechart" class="img-fluid " alt="">
+      <h1> {{testmessage}} {{errormessage}} </h1>
     </div>
   </div>
-  </div>
+</div>
 <script>
-function form_validation()
-  {
+  function form_validation() {
     business_category = document.forms["vform"]["selectcategory"].value;
     business_name = document.forms["vform"]["selectbusiness"].value;
     no_of_tweets = document.forms["vform"]["nooftweets"].value;
     username = document.forms["vform"]["username"].value;
     //
-    if(business_category != "Select Business Category" && username!=""){
+    if (business_category != "Select Business Category" && username != "") {
       alert("Either input username or select from categories and business, you have selected both");
       return false;
     }
-    if(username!="" && no_of_tweets != "Select No of Tweets"){
+    if (username != "" && no_of_tweets != "Select No of Tweets") {
       return true;
     }
     // NO OPTION SELECTED
-    if(business_category == "Select Business Category" && business_name == "Select Business" && no_of_tweets == "Select No of Tweets"){
+    if (business_category == "Select Business Category" && business_name == "Select Business" && no_of_tweets == "Select No of Tweets") {
       // BUSINESS NAME AND NUMBER OF TWEETS NOT SELECTED
       alert("Select Options");
       return false;
     }
     // ONLY BUSINESS CATEGORY SELECTED  
-    else if(business_category != "Select Business Category" && business_name == "Select Business" && no_of_tweets == "Select No of Tweets")
-    {
+    else if (business_category != "Select Business Category" && business_name == "Select Business" && no_of_tweets == "Select No of Tweets") {
       alert("You forgot to Select Business and Number of Tweets");
       return false;
     }
     // NUMBER OF TWEETS NOT SELECTED
-    else if(business_category != "Select Business Category" && business_name != "Select Business" && no_of_tweets == "Select No of Tweets")
-    {
+    else if (business_category != "Select Business Category" && business_name != "Select Business" && no_of_tweets == "Select No of Tweets") {
       alert("Select Number of Tweets");
       return false;
     }
-      // BUSINESS CATEGORY AND NUMBER OF TWEETS NOT SELECTED 
-    else if(business_category == "Select Business Category" && business_name == "Select Business" && no_of_tweets != "Select No of Tweets")
-    {
+    // BUSINESS CATEGORY AND NUMBER OF TWEETS NOT SELECTED 
+    else if (business_category == "Select Business Category" && business_name == "Select Business" && no_of_tweets != "Select No of Tweets") {
       alert("Select Business Category and Business");
       return false;
     }
     // NUMBER OF TWEETS NOT SELECTED
-    else if(business_category != "Select Business Category" && business_name == "Select Business" && no_of_tweets != "Select No of Tweets")
-    {
+    else if (business_category != "Select Business Category" && business_name == "Select Business" && no_of_tweets != "Select No of Tweets") {
       alert("Select Business");
       return false;
     }
     // ONLY CATEGORY AND NUMMBER OF TWEETS SELECTED
-    else if(business_category != "Select Business Category" && business_name == "Select Business" && no_of_tweets != "Select No of Tweets")
-    {
+    else if (business_category != "Select Business Category" && business_name == "Select Business" && no_of_tweets != "Select No of Tweets") {
       alert("Select Business");
       return false;
     }
     // RETRURN TRUE 
-    else{
+    else {
       return true;
     }
   }
-  function display_images(){
+
+  function display_images() {
     document.getElementById("hashchart").style.display = "block";
-    document.getElementById("barchart").style.display = "block";
+    document.getElementById("bigrams").style.display = "block";
+    document.getElementById("wordfrequencywordcloud").style.display = "block";
+    document.getElementById("mentionsbarchart").style.display = "block";
+    document.getElementById("mentionspiechart").style.display = "block";
     document.getElementById("frequency").style.display = "block";
+    document.getElementById("likeschart").style.display = "block";
+    document.getElementById("retweetschart").style.display = "block";
+    //document.getElementById("retweets").style.display = "block";
+    document.getElementById("hashtagsbarchart").style.display = "block";
+    document.getElementById("hashtagspiechart").style.display = "block";
   }
-  
-  function  hide_images() {
+
+  function hide_images() {
     document.getElementById("hashchart").style.display = "none";
-    document.getElementById("barchart").style.display = "none";
+    document.getElementById("bigrams").style.display = "none";
+    document.getElementById("wordfrequencywordcloud").style.display = "none";
+    document.getElementById("mentionsbarchart").style.display = "none";
+    document.getElementById("mentionspiechart").style.display = "none";
     document.getElementById("frequency").style.display = "none";
+    document.getElementById("likeschart").style.display = "none";
+    document.getElementById("retweetschart").style.display = "none";
+    //document.getElementById("retweets").style.display = "none";
+    document.getElementById("hashtagsbarchart").style.display = "none";
+    document.getElementById("hashtagspiechart").style.display = "none";
   }
+
   hide_images();
 
-  function  hide_instructions() {
+  function hide_instructions() {
     document.getElementById("instructionheading").style.display = "none";
     document.getElementById("instructionslist").style.display = "none";
-    document.getElementById("frequency").style.display = "none";
+    //document.getElementById("frequency").style.display = "none";
   }
 
-  if('{{display_message}}'=='yes'){
+  if ('{{display_message}}' == 'yes') {
     hide_instructions();
     display_images();
-  }  
+  }
 </script>
 {% endblock content %}

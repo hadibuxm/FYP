@@ -29,6 +29,9 @@ def release_list(a):
 """
 # GET FREQUENTLY USED WORDS
 def most_common(userid, no_of_tweets, api = API):
+    user = api.get_user(screen_name=userid)
+    user_description = user.description
+    user_followers = user.followers_count
     tokens = []
     stop_words = stopwords.words("english")
     # GET TEXT FROM DATAFRAME
@@ -43,22 +46,35 @@ def most_common(userid, no_of_tweets, api = API):
                 # IF WORD IS NOT IN STOPWORDS LIST
                 if word not in stop_words:
                     tokens.append( word)
-    fwords = []
+    fwords = dict()
+    #wfrequency = list()
     countwords = Counter(tokens)
     #release_list(tokens), it takes 5 more seconds 
-    for word in countwords.most_common(10):
-        fwords.append(word[0] + ':' + " used " + str(word[1]) + ' times')
-    return fwords
+    for data in countwords.most_common(20):
+        #fwords.append(word[0] + ':' + str(word[1]) + ' times')
+        #fwords.append(word[0])
+        #wfrequency.append(word[1])
+        fwords[data[0]] = data[1]
+    return fwords, user_description, user_followers, #fwords[0] #wfrequency
     
 # GET URLS
 def get_urls(userid, no_of_tweets, api = API):
-    urls = list()
+    #urls = list()
+    #dates = list()
+    user = api.get_user(screen_name=userid)
+    user_description = user.description
+    user_followers = user.followers_count
+    urls_dict = dict()
     for status in tweepy.Cursor(api.user_timeline, screen_name=userid, tweet_mode="extended", include_rts = False).items(no_of_tweets):
-        urls += regexp_tokenize(status.full_text , reurl.url_validate)
+        #urls += regexp_tokenize(status.full_text , reurl.url_validate)
+        #dates += status.created_at
+        value = regexp_tokenize(status.full_text, reurl.url_validate)
+        if len(value) != 0:
+            urls_dict[status.created_at] = value
     #titles = list()
     #for link in urls:
     #    titles.append(get_title(link))
-    return list(set(urls))
+    return urls_dict, user_description, user_followers
     
 # RETURN HASHTAGS
 def get_hashes(userid, no_of_tweets, api = API):
@@ -75,11 +91,15 @@ def get_hashes(userid, no_of_tweets, api = API):
         hashtags += regexp_tokenize(status.full_text, hashpattern)
     # return list of unique hashtags with no. of times they have been used
     hashcount = Counter(hashtags).most_common()
-    new_hash = list()
-    for each_hash in hashcount:
-    #new_hash.append(each_hash[0] + ': ' + str(each_hash[1]))
-        new_hash.append(each_hash[0] + ' : ' + str(each_hash[1]))
-    return new_hash, user_description, user_followers
+    #new_hash = list()
+    hashdictionary = dict()
+    #hash_freq = list()
+    for data in hashcount:
+        hashdictionary[data[0]] = data[1]
+        #new_hash.append(each_hash[0] + ': ' + str(each_hash[1]))
+        #new_hash.append(each_hash[0])
+        #hash_freq.append(each_hash[1])
+    return hashdictionary,  user_description, user_followers
 
 # MENTIONS FUNCTION
 def get_mentions(userid, no_of_tweets, api = API):
@@ -93,7 +113,7 @@ def get_mentions(userid, no_of_tweets, api = API):
     for status in tweepy.Cursor(api.user_timeline, screen_name=userid, tweet_mode="extended").items(no_of_tweets):
         # get hashtags and save in list named hashtags 
         mentions += regexp_tokenize(status.full_text, mentionspattern)
-    mentioncount = Counter(mentions)
+    mentioncount = Counter(mentions).most_common()
     return mentioncount, user_description, user_followers
     """
     new_mentions = list()

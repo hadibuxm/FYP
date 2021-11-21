@@ -4,185 +4,172 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-3">
-        <form action="" method="POST">
-            {% csrf_token %}
-            <label for="input1">Business 1</label>
-            <input type="text" class="form-control" id="business1" name="business1">
-            <label for="input2">Business 2</label>
-            <input type="text" class="form-control" id="business2" name="business2">
-            <label for="tweetsinput">Number Of Tweets</label>
-            <input type="number" class="form-control" id="numberoftweets" name="numberoftweets">
-          <br><br>  
-        <button type="submit" class="btn btn-outline-primary">Compare</button>
-        </form>
-
-      <br>
-      <button onclick="generate_pdf()" class="btn btn-outline-success ">Generate PDF</button>
+            <form action="" method="POST" name="cform" onsubmit="return form_validation()">
+                {% csrf_token %}
+                <label for="input1"><strong>Business 1</strong></label>
+                <input type="text" class="form-control" id="business1" name="business1"><br>
+                <label for="input2"><strong>Business 2</strong></label>
+                <input type="text" class="form-control" id="business2" name="business2"><br>
+                <label for="tweetsinput"><strong>Number Of Tweets</strong></label>
+                <input type="number" min="50" class="form-control" id="numberoftweets" name="numberoftweets">
+                <br><br>
+                <button type="submit" class="btn btn-outline-primary btn-length"><strong>Compare</strong></button>
+            </form>
+            <br>
+            <button onclick="generate_pdf()" class="btn btn-outline-success  btn-length"><strong>Get
+                    Report</strong></button>
         </div>
 
         <div class="col-lg-9 canvas_div_pdf">
             <h1>{{bothinputserror}}</h1>
             <h2>{{business2error}}</h2>
             <h2>{{bussiness1error}}</h2>
-            <div class="table-responsive">          
-            <table class="table table-bordered">
-                <thead class="thead-dark">
-                    <tr id="businessnames">
-                        <th>Business</th>
-                        <th>{{business1name}} {{business1url}}</th>
-                        <th>{{business2name}} {{business2url}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!--
+            <div id="comparisontable" class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr id="businessnames">
+                            <th>Business</th>
+                            <th>{{business1name}} {{business1url}}</th>
+                            <th>{{business2name}} {{business2url}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--
                      <tr id="descriptions">
                         <td colspan="2" class="text-center"><strong>Descriptions</strong></td>
                     </tr>
                     -->
-                    <tr id="businessdescriptions">
-                        <td><strong>DESCRIPTION</strong></td>
-                        <td>{{business1description}}</td>
-                        <td>{{business2description}}</td>
-                    </tr>
-                    <!--
+                        <tr id="businessdescriptions">
+                            <td><strong>DESCRIPTION</strong></td>
+                            <td>{{business1description}}</td>
+                            <td>{{business2description}}</td>
+                        </tr>
+                        <!--
                     <tr id="followers">
                         <td colspan="2" class="text-center"><strong>Followers</strong></td>
                     </tr>
                     -->
-                    <tr id="businessfollowers">
-                        <td><strong>FOLLOWERS</strong> </td>
-                        <td>{{business1followers}}</td>
-                        <td>{{business2followers}}</td>
-                    </tr>
-                    <!--
+                        <tr id="businessfollowers">
+                            <td><strong>FOLLOWERS</strong> </td>
+                            <td>{{business1followers}}</td>
+                            <td>{{business2followers}}</td>
+                        </tr>
+                        <!--
                     <tr id="businessurl">
                         <td>{{business1url}}</td>
                         <td>{{business2url}}</td>
                     </tr>
                     -->
-                    
-                     <tr id="hashtags">
-                        <td><strong>Hashtags</strong></td>
-                        <td>{{business1hashtag}}</td>
-                        <td>{{business2hashtag}}</td>
-                    </tr>
-                    <tr id="likes">
-                        <td><strong>LIKES</strong></td>
-                        <td>{{business1likes}}</td>
-                        <td>{{business2likes}}</td>
-                    </tr>
-                    <tr id="retweets">
-                        <td><strong>RETWEETS</strong></td>
-                        <td>{{business1retweets}}</td>
-                        <td>{{business2retweets}}</td>
-                    </tr>
-                    <tr id="mostlikedtweet">
-                        <td><strong>MOST LIKED TWEET</strong></td>
-                        <td>{{business1mostlikeddate}}</td>
-                        <td>{{business2mostlikedtweetdate}}</td>
-                    </tr>
-                    <tr id="mostlikedtweetlikes">
-                        <td>Likes</td>
-                        <td>{{business1mostlikedltweetikes}}</td>
-                        <td>{{business2mostlikedtweetlikes}}</td>
-                    </tr>
-                    <tr id="mostlikedtweettext">
-                        <td>Content</td>
-                        <td>{{business1mostlikedtweettext}}</td>
-                        <td>{{business2mostlikedtweettext}}</td>
-                    </tr>
-                    <tr id="mostretweetedtweet">
-                        <td><strong>MOST RETWEETED TWEET</strong></td>
-                        <td>{{business1mostretweetedtweet}} {{business1mostretweetedtweettext}}</td>
-                        <td>{{business2mostretweetedtweet}} {{business2mostlikedtweettext}}</td>
-                    </tr>
-                      <tr id="mostretweetedtweetlikes">
-                        <td>Likes</td>
-                        <td>{{business1mostretweetedltweetikes}}</td>
-                        <td>{{business2mostretweetedtweetlikes}}</td>
-                    </tr>
-                    <tr id="mostlikedtweettext">
-                        <td>Content</td>
-                        <td>{{business1mostretweetedtweettext}}</td>
-                        <td>{{business2mostretweetedtweettext}}</td>
-                    </tr>
-                    <!--
+
+                        <tr id="hashtags">
+                            <td><strong>Hashtags</strong></td>
+                            <td>{{business1hashtag}}</td>
+                            <td>{{business2hashtag}}</td>
+                        </tr>
+                        <tr id="likes">
+                            <td><strong>LIKES</strong></td>
+                            <td>{{business1likes}}</td>
+                            <td>{{business2likes}}</td>
+                        </tr>
+                        <tr id="retweets">
+                            <td><strong>RETWEETS</strong></td>
+                            <td>{{business1retweets}}</td>
+                            <td>{{business2retweets}}</td>
+                        </tr>
+                        <tr id="mostlikedtweet">
+                            <td><strong>MOST LIKED TWEET</strong></td>
+                            <td>{{business1mostlikeddate}}</td>
+                            <td>{{business2mostlikedtweetdate}}</td>
+                        </tr>
+                        <tr id="mostlikedtweetlikes">
+                            <td>Likes</td>
+                            <td>{{business1mostlikedltweetikes}}</td>
+                            <td>{{business2mostlikedtweetlikes}}</td>
+                        </tr>
+                        <tr id="mostlikedtweettext">
+                            <td>Content</td>
+                            <td>{{business1mostlikedtweettext}}</td>
+                            <td>{{business2mostlikedtweettext}}</td>
+                        </tr>
+                        <tr id="mostretweetedtweet">
+                            <td><strong>MOST RETWEETED TWEET</strong></td>
+                            <td>{{business1mostretweetedtweet}} {{business1mostretweetedtweettext}}</td>
+                            <td>{{business2mostretweetedtweet}} {{business2mostlikedtweettext}}</td>
+                        </tr>
+                        <tr id="mostretweetedtweetlikes">
+                            <td>Likes</td>
+                            <td>{{business1mostretweetedltweetikes}}</td>
+                            <td>{{business2mostretweetedtweetlikes}}</td>
+                        </tr>
+                        <tr id="mostlikedtweettext">
+                            <td>Content</td>
+                            <td>{{business1mostretweetedtweettext}}</td>
+                            <td>{{business2mostretweetedtweettext}}</td>
+                        </tr>
+                        <!--
                     <tr id="latestpost">
                         <td colspan="2" class="text-center"><strong>Latest Post</strong></td>
                     </tr>
                     -->
-                    <tr id="latestpostdate">
-                        <td><strong>LATEST POST</strong></td>
-                        <td><strong>{{business1latestpostdate}}</strong></td>
-                        <td><strong>{{business2latestpostdate}}</strong></td>
-                    </tr>
-                    <tr id="latestposttext">
-                        <td>Content</td>
-                        <td>{{business1latesttweettext}}</td>
-                        <td>{{business2latesttweettext}}</td>
-                    </tr>
-                    <tr id="latestpostlikes">
-                        <td>Likes</td>
-                        <td>{{business1latesttweetlikes}}</td>
-                        <td>{{business2latesttweetlikes}}</td>
-                    </tr>
-                    <tr id="latestpostretweets">
-                       <td>Post Retweets</td>
-                       <td>{{business1latesttweetretweets}}</td>
-                       <td><strong>{{business2latesttweetretweets}}</td>
-                    </tr>
-                    <!--
+                        <tr id="latestpostdate">
+                            <td><strong>LATEST POST</strong></td>
+                            <td><strong>{{business1latestpostdate}}</strong></td>
+                            <td><strong>{{business2latestpostdate}}</strong></td>
+                        </tr>
+                        <tr id="latestposttext">
+                            <td>Content</td>
+                            <td>{{business1latesttweettext}}</td>
+                            <td>{{business2latesttweettext}}</td>
+                        </tr>
+                        <tr id="latestpostlikes">
+                            <td>Likes</td>
+                            <td>{{business1latesttweetlikes}}</td>
+                            <td>{{business2latesttweetlikes}}</td>
+                        </tr>
+                        <tr id="latestpostretweets">
+                            <td>Post Retweets</td>
+                            <td>{{business1latesttweetretweets}}</td>
+                            <td><strong>{{business2latesttweetretweets}}</td>
+                        </tr>
+                        <!--
                     <tr id="quotedtweet">
                         <td colspan="2" class="text-center"><strong>Latest Quoted Tweet</strong></td>
                     </tr>
                     -->
-                    <tr id="businessquotedtweets">
-                        <td><strong>QUOTED TWEETS</strong></td>
-                        <td>{{business1latestquotedtweettext}}</td>
-                        <td>{{business2latestquotedtweettext}}</td>
-                    </tr>
-
-                </tbody>
-            </table>
+                        <tr id="businessquotedtweets">
+                            <td><strong>QUOTED TWEETS</strong></td>
+                            <td>{{business1latestquotedtweettext}}</td>
+                            <td>{{business2latestquotedtweettext}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <!--
-            <div class="row">
-                <div class="col-lg-6">
-                    <h3>{{business1name}}</h3>
-                    <h6>{{business1description}}</h6>
-                    <h4>{{business1followers}}</h4>
-                    <h5>{{business1url}}</h5>
-                    
-                    <ul>
-                        Following
-                        {% for people in following1 %}
-                        <li>people</li>
-                        {% endfor %}
-                    </ul>
-                    
-                </div>
-                <div class="col-lg-6">
-                    <h3>{{business2name}}</h3>
-                    <h6>{{business2description}}</h6>
-                    <h4>{{business2followers}}</h4>
-                    <h5>{{business2url}}</h5>
-                    
-                    <ul>
-                        Following
-                        {% for people in following2 %}
-                        <li>people</li>
-                        {% endfor %}
-                    </ul>
-                    
-                </div>
-            </div>
-        -->
         </div>
     </div>
 </div>
 <script>
     document.getElementById('business1').value = "{{input1}}";
     document.getElementById('business2').value = "{{input2}}";
-    document.getElementById("numberoftweets").value = "{{numberoftweets}}"
-</script>       
+    document.getElementById("numberoftweets").value = "{{numberoftweets}}";
+    document.getElementById("comparisontable").style.display = 'none';
+    if ("{{displaymessage}}") {
+        document.getElementById("comparisontable").style.display = 'block';
+    }
+    
+    alert(numberoftweets);
+    function  form_validation() {
+        business1 = document.forms["cform"]["business1"].value;
+        business2 = document.forms['cform']['business2'].value;
+        numberoftweets = document.forms['cform']['numberoftweets'].value;
+        if(business1 =='' && business2 == '' && numberoftweets==''){
+            alert("Please Input Usernames and Number of Tweets");
+            return false;
+        }
+        /*
+        else if(business1==business2){
+            alert("Same Usernames can not be compared, please type different usernames");
+            return false;
+        }*/
+    }
+</script>
 {% endblock content %}

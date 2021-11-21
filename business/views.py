@@ -3,100 +3,152 @@ creates views for app
 """
 import re
 from django.shortcuts import render
+from matplotlib.pyplot import bar
 from modules import business
 from modules import searchhash, compareanalysis
 from modules import visualizelib
 from . models import CountryList
 # Create your views here.
 # HOME PAGE
+
+
 def home(request):
     return render(request, 'business/index.html')
 
 # GROWBUSINESS HOME PAGE
+
+
 def growbusiness(request):
     return render(request, 'business/growbusiness.html')
 
 # GROWBUSINESS FUNCTIONS PAGE
+
+
 def gbfunctions(request):
-    if request.method == 'POST': # check if user has clicked on submit button
-        #print(request.POST)
-        id_inputs = [str(request.POST.get('selectbusiness')), str(request.POST.get("username"))] # get business name
-        print(id_inputs)
+    if request.method == 'POST':  # check if user has clicked on submit button
+        # print(request.POST)
+        id_inputs = [str(request.POST.get('selectbusiness')), str(
+            request.POST.get("username"))]  # get business name
+        #print(id_inputs)
         if(id_inputs[0] == "Select Business"):
             userid = id_inputs[1]
         else:
             userid = id_inputs[0]
-        #print(userid)
-        #businesscategory = str(request.POST.get('selectcategory')) # get business category
-        nooftweets = int(request.POST.get('nooftweets')) # get no. of tweets
+        # print(userid)
+        # businesscategory = str(request.POST.get('selectcategory')) # get business category
+        nooftweets = int(request.POST.get('nooftweets'))  # get no. of tweets
         if "showtags" in request.POST:
             try:
                 get_tags = business.get_hashes(userid, nooftweets)
-                if len(get_tags[0]) != 0:
-                    lenofhashtags = len(get_tags[0])
+                tag_lenth = len(get_tags[0])
+                user_description = get_tags[1]
+                user_followers = get_tags[2]
+                #most_used_hashtag = get_tags[0][0]
+                if tag_lenth != 0:
+                    #lenofhashtags = len(get_tags[0])
                     context = {
-                               'tags': get_tags[0],
-                               'userid': userid,
-                               'nooftweets': nooftweets,
-                               'lenofhashtagsmsg': 'Unique Hashtags: ' + str(lenofhashtags),
-                               'lenofhashtags': int(lenofhashtags / 2),
-                               'userdesription': get_tags[1],
-                               'userfollowers': get_tags[2],
-                               'display_message': 'yes',
-                                'mostusedhashtag': get_tags[0][0],
-                               }
+                        'hashdictionary': get_tags[0],
+                        'userid': userid,
+                        'nooftweets': nooftweets,
+                        'lenofhashtagsmsg': str(tag_lenth),
+                        'lenofhashtags': int(tag_lenth / 2),
+                        'userdescription': user_description,
+                        'userfollowers': user_followers,
+                        'display_message': 'yes',
+                        # 'mostusedhashtag': most_used_hashtag,
+                        'onlytags': 'yes',
+                    }
                     return render(request, 'business/gbfunctions.html', context)
                 else:
-                            context = {'nohashtagsmessage': 'No hashtag has been used'}
-                            return render(request, 'business/gbfunctions.html', context)
-            
+                    context = {'nohashtagsmessage': 'No hashtag has been used'}
+                    return render(request, 'business/gbfunctions.html', context)
             except:
-                context = {'errormessage': 'ohh,server not responding, try again in some time'}
+                context = {
+                    'errormessage': 'ohh,server not responding, try again in some time'}
                 return render(request, 'business/gbfunctions.html', context)
-            
+
         elif 'showfwords' in request.POST:
             try:
                 get_words = business.most_common(userid, nooftweets)
-                return render(request, 'business/gbfunctions.html', {'frequentwords': get_words, 'userid': userid, 'nooftweets': nooftweets, 'display_message': 'yes', })
+                fwords = get_words[0]
+                user_description = get_words[1]
+                user_followers = get_words[2]
+                #most_used_word = get_words[3]
+                #wfrequency = get_words[4]
+                # if len(fwords) != 0:
+                context = {
+                    'userid': userid,
+                    'userdescription': user_description,
+                    'userfollowers': user_followers,
+                    'nooftweets': nooftweets,
+                    'frequentwords': fwords,
+                    'nooftweets': nooftweets,
+                    # 'mostusedword' : most_used_word,
+                    'display_message': 'yes',
+                    'onlyfwords': 'yes',
+                    # 'wfrequency' : wfrequency,
+                }
+                return render(request, 'business/gbfunctions.html', context)
             except:
                 context = {
                     'errormessage': 'ohh,server not responding, try again in some time'
                 }
                 return render(request, 'business/gbfunctions.html', context)
-        
+
         elif 'showurls' in request.POST:
             try:
                 get_urls = business.get_urls(userid, nooftweets)
-                    #print(get_urls)
-                context = {
-                    'urls': get_urls,
-                    'userid': userid, 
-                    'nooftweets': nooftweets,
-                    'display_message': 'yes',
-                }
-                return render(request, 'business/gbfunctions.html', context)
+                #print(get_urls[0])
+                if len(get_urls[0]) != 0:
+                # print(get_urls)
+                    context = {
+                        'urls': get_urls[0],
+                        'userid': userid,
+                        'userdescription' : get_urls[1],
+                        'nooftweets': nooftweets,
+                        'userfollowers' : get_urls[2],
+                        'display_message': 'yes',
+                        'onlyurls' : 'yes',
+                    }
+                    return render(request, 'business/gbfunctions.html', context)
+                else:
+                    context = {
+                        'errormessage': "no URL's shared by " + userid + ' in ' + str(nooftweets) + ' tweets'
+                    }
+                    return render(request, 'business/gbfunctions.html', context)
             except:
                 context = {
-                            'errormessage': 'Server not responding, try again in some time'
-                        }
+                    'errormessage': 'Server not responding, try again in some time'
+                }
                 return render(request, 'business/gbfunctions.html', context)
         elif 'showmentions' in request.POST:
             try:
                 data = business.get_mentions(userid, nooftweets)
                 mentioncount = data[0]
-                mentions = list()
-                for each_mention in mentioncount:
-                            #new_hash.append(each_hash[0] + ': ' + str(each_hash[1]))
-                    mentions.append(each_mention + ' : ' + str(mentioncount[each_mention]))
-                context = {'mentions': mentions,
-                           'display_message': 'yes',
-                           'userdesription' : data[1],
-                           'userfollowers' : data[2],
-                           #'mostusedmention': mentions[0],
-                }
-                return render(request, 'business/gbfunctions.html', context)
+                mentions = dict()
+                user_description = data[1]
+                user_followers = data[2]
+                if len(mentioncount) != 0:
+                    for mention_data in mentioncount:
+                        mentions[mention_data[0]] = mention_data[1]
+                    context = {
+                        'userid': userid,
+                        'mentions': mentions,
+                        'nooftweets': nooftweets,
+                        'display_message': 'yes',
+                        'userdescription': user_description,
+                        'userfollowers': user_followers,
+                        'onlymentions' : 'yes',
+                        # 'mostusedmention': mentions[0],
+                    }
+                    #print(mentions)
+                    return render(request, 'business/gbfunctions.html', context)
+                else:
+                    context = {'nohashtagsmessage': 'No Mentions'}
+                    return render(request, 'business/gbfunctions.html', context)
             except:
-                context = {'errormessage': 'server not responding, try again in some time'}
+                context = {
+                    'errormessage': 'server not responding, try again in some time'}
                 return render(request, 'business/gbfunctions.html', context)
         """
         try:
@@ -225,23 +277,28 @@ def gbfunctions(request):
     else:
         return render(request, 'business/gbfunctions.html')
 
+
 def sentimentanalysis(request):
     return render(request, 'business/sentimentanalysis.html')
+
 
 def sfunctions(request):
     return render(request, 'business/sfunctions.html')
 
+
 def comparativeanalysis(request):
     return render(request, 'business/comparativeanalysis.html')
-    
+
+
 def cfunctions(request):
-    #print(request.POST)
+    # print(request.POST)
     if request.method == 'POST':
         business1 = request.POST.get('business1')
         business2 = request.POST.get('business2')
         numberoftweets = int(request.POST.get('numberoftweets'))
         if business1 != '' and business2 != '':
-            comparedata = compareanalysis.compare(business1, business2, numberoftweets)
+            comparedata = compareanalysis.compare(
+                business1, business2, numberoftweets)
             context = {
                 'business1name': comparedata[0],
                 'business2name': comparedata[1],
@@ -251,21 +308,22 @@ def cfunctions(request):
                 'business2followers': comparedata[5],
                 'business1url': comparedata[6],
                 'business2url': comparedata[7],
-                'business1likes' : comparedata[8],
-                'business2likes' : comparedata[9],
-                'business1retweets' : comparedata[10],
-                'business2retweets' : comparedata[11],
+                'business1likes': comparedata[8],
+                'business2likes': comparedata[9],
+                'business1retweets': comparedata[10],
+                'business2retweets': comparedata[11],
                 'input1': business1,
                 'input2': business2,
-                'numberoftweets' : numberoftweets,
+                'numberoftweets': numberoftweets,
                 'business1latestpostdate': comparedata[12],
-                'business2latestpostdate' : comparedata[13],
+                'business2latestpostdate': comparedata[13],
                 'business1latesttweettext': comparedata[14],
                 'business2latesttweettext': comparedata[15],
-                'business1latesttweetlikes' : comparedata[16],
+                'business1latesttweetlikes': comparedata[16],
                 'business2latesttweetlikes': comparedata[17],
-                'business1latesttweetretweets' : comparedata[18],
-                'business2latesttweetretweets' : comparedata[19],
+                'business1latesttweetretweets': comparedata[18],
+                'business2latesttweetretweets': comparedata[19],
+                'displaymessage' : 'yes',
             }
             return render(request, 'business/cfunctions.html', context)
 
@@ -284,11 +342,14 @@ def cfunctions(request):
 
     return render(request, 'business/cfunctions.html')
 
+
 def topbusiness(request):
     return render(request, 'business/topbusiness.html')
 
+
 def tbfunctions(request):
     return render(request, 'business/tbfunctions.html')
+
 
 def trends(request):
     # check if user has submitted form
@@ -310,7 +371,7 @@ def trends(request):
                     # make context for web page
                     context = {'topics': trending_topics,
                                'countryname': country_name}
-                    print(request.POST)
+                    #print(request.POST)
                     # render web page
                     return render(request, 'business/trends.html', context)
 
@@ -324,10 +385,11 @@ def trends(request):
             # get selected topic name
             trending_topic = request.POST.get('selecttopic')
 
-            trending_tweets = searchhash.get_tweets(request.POST.get('selecttopic'))
+            trending_tweets = searchhash.get_tweets(
+                request.POST.get('selecttopic'))
             context = {'selected': trending_topic,
                        'trendingtweets':  trending_tweets,
-                        'countryname' : country_name}
+                       'countryname': country_name}
             return render(request, 'business/trends.html', context)
     # elif request.method =="GET":
     #	return render(request, 'business/hash.html',{'selected': request.Get.get('selectionvalue')})
@@ -335,50 +397,171 @@ def trends(request):
     else:
         return render(request, 'business/trends.html')
 
+
 def visualize(request):
     return render(request, 'business/visualize.html')
 
+
 def vfunctions(request):
     if request.method == 'POST':
-        #try:
-            # get business name
-        #print(request.POST)
-        id_inputs = [str(request.POST.get('selectbusiness')), str(request.POST.get("username"))]  # get business name
-        #print(id_inputs)
+        # try:
+        # get business name
+        # print(request.POST)
+        id_inputs = [str(request.POST.get('selectbusiness')), str(
+            request.POST.get("username"))]  # get business name
+        # print(id_inputs)
         if(id_inputs[0] == "Select Business"):
             userid = id_inputs[1]
         else:
             userid = id_inputs[0]
         nooftweets = int(request.POST.get('nooftweets'))  # get no. of tweets
-        if 'hashtags' in request.POST:
-        # get business name
+        if "hashtagsbarchart" in request.POST:
+            try:
+                barchart = visualizelib.hashtagsbarchart(userid, nooftweets)
+                if barchart == 0:
+                    context = {
+                        'errormessage': 'No Hashtag used by ' + userid + ' in ' + str(nooftweets) + ' Tweets',
+                    }
+                    return render(request, 'business/vfunctions.html', context)
+                else:
+                    context = {
+                        'hashtagsbarchart': barchart,
+                        'display_message': 'yes',
+                    }
+                    return render(request, 'business/vfunctions.html', context)
+            except:
+                context = {
+                    'errormessage': 'server not responding, try again in some time',
+                }
+                return render(request, 'business/vfunctions.html', context)
+
+        elif "hashtagspiechart" in request.POST:
+            try:
+                piechart = visualizelib.hashtagspiechart(userid, nooftweets)
+                if piechart == 0:
+                    context = {
+                        'errormessage': 'No Hashtag used by ' + userid + ' in ' + str(nooftweets) + ' Tweets',
+                    }
+                    return render(request, 'business/vfunctions.html', context)
+                else:
+                    context = {
+                        'hashtagspiechart': piechart,
+                        'display_message': 'yes',
+                    }
+                    return render(request, 'business/vfunctions.html', context)
+            except:
+                context = {
+                    'errormessage': 'server not responding, try again in some time',
+                }
+                return render(request, 'business/vfunctions.html', context)
+        elif 'hashtags' in request.POST:
+            # get business name
             try:
                 hash_chart = visualizelib.histplot(userid, nooftweets)
-                return render(request, 'business/vfunctions.html', {'hashchart' : hash_chart, 'testmessage' : 'in if'})
+                return render(request, 'business/vfunctions.html', {'hashchart': hash_chart, 'testmessage': 'in if'})
             except:
-                context = {'errormessage': 'server not responding, try again in some time'}
-                return render(request, 'business/gbfunctions.html', context)
+                context = {
+                    'errormessage': 'server not responding, try again in some time'}
+                return render(request, 'business/vfunctions.html', context)
         elif 'frequency' in request.POST:
-             # get business name
+            # get business name
             try:
                 freq_chart = visualizelib.freqplot(userid, nooftweets)
                 context = {'freqchart': freq_chart,
-                            'display_message' : 'yes',
+                           'userid': userid,
+                           'display_message': 'yes',
+                           }
+                return render(request, 'business/vfunctions.html', context)
+            except:
+                context = {
+                    'errormessage': 'server not responding, try again in some time'}
+                return render(request, 'business/gbfunctions.html', context)
+
+        elif 'wordfrequencywordcloud' in request.POST:
+            # get business name
+            try:
+                wordfrequencywordcloud = visualizelib.wordfrequencywordcloud(
+                    userid, nooftweets)
+                context = {'wordfrequencywordcloud': wordfrequencywordcloud,
+                           'display_message': 'yes',
+                           'userid': userid,
+                           }
+                return render(request, 'business/vfunctions.html', context)
+            except:
+                context = {
+                    'errormessage': 'server not responding, try again in some time'}
+                return render(request, 'business/gbfunctions.html', context)
+        elif 'bigrams' in request.POST:
+            # get business name
+            try:
+                bigrams = visualizelib.bigrams(userid, nooftweets)
+                context = {'bigrams': bigrams,
+                           'display_message': 'yes',
+                           'userid': userid,
+                           }
+                return render(request, 'business/vfunctions.html', context)
+            except:
+                context = {
+                    'errormessage': 'server not responding, try again in some time'}
+                return render(request, 'business/gbfunctions.html', context)
+        elif 'mentionsbarchart' in request.POST:
+            try:
+                mentionsbarchart = visualizelib.mentionsbarchart(
+                    userid, nooftweets)
+                context = {
+                    'mentionsbarchart': mentionsbarchart,
+                    'display_message': 'yes',
                 }
                 return render(request, 'business/vfunctions.html', context)
             except:
-                context = {'errormessage': 'server not responding, try again in some time'}
-                return render(request, 'business/gbfunctions.html', context)
-        elif 'barchart' in request.POST:
+                context = {
+                    'errormessage': 'api server not responding, try again in some time'}
+                return render(request, 'business/vfunctions.html', context)
+        elif 'mentionspiechart' in request.POST:
             try:
-                barchart = visualizelib.barchart(userid, nooftweets)
-                return render(request, 'business/vfunctions.html', {'barchart' : barchart})
+                mentionspiechart = visualizelib.mentionspiechart(
+                    userid, nooftweets)
+                context = {
+                    'mentionspiechart': mentionspiechart,
+                    'userid': userid,
+                    'display_message': 'yes',
+                }
+                return render(request, 'business/vfunctions.html', context)
             except:
-                context = {'errormessage': 'api server not responding, try again in some time'}
+                context = {
+                    'errormessage': 'api server not responding, try again in some time'}
+                return render(request, 'business/vfunctions.html', context)
+        elif 'likeschart' in request.POST:
+            try:
+                likeschart = visualizelib.likeschart(userid, nooftweets)
+                context = {
+                    'likeschart': likeschart,
+                    'display_message': 'yes',
+                    'userid': userid,
+                }
+                return render(request, 'business/vfunctions.html', context)
+            except:
+                context = {
+                    'errormessage': 'api server not responding, try agian in some time'}
+                return render(request, 'business/vfunctions.html', context)
+        elif 'retweetschart' in request.POST:
+            try:
+                retweetschart = visualizelib.retweetschart(userid, nooftweets)
+                context = {
+                    'retweetschart': retweetschart,
+                    'display_message': 'yes',
+                    'userid': userid,
+                }
+                return render(request, 'business/vfunctions.html', context)
+            except:
+                context = {
+                    'errormessage': 'api server not responding, try agian in some time'
+                }
                 return render(request, 'business/vfunctions.html', context)
 
-    else:    
+    else:
         return render(request, 'business/vfunctions.html')
+
 
 def allfunctions(request):
     return render(request, 'business/allfunctions.html')

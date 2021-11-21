@@ -1,16 +1,18 @@
-
-#gbform{
+#gbform {
     text-align: center;
-    
 }
 
-#gbintroduction{
+#gbintroduction {
     background-color: rgb(239, 234, 241);
     border-radius: 20px 230px 500px 20px;
 }
 
-#instructionslist{
+#instructionslist {
     line-height: 150%;
+}
+
+.btn-length {
+    width: 250px;
 }
 
 /*
@@ -18,44 +20,48 @@
     color: white;
 }
 */
-#gbtopicidentification{
+
+#gbtopicidentification {
     background-color: rgb(110, 185, 219);
     border-radius: 500px 20px 20px 230px;
 }
-#username{
+
+#username {
     width: 245px;
 }
-#gbhashtag{
+
+#gbhashtag {
     background-color: rgb(173, 233, 159);
-   border-radius: 20px 230px 500px 20px;
+    border-radius: 20px 230px 500px 20px;
 }
 
-#gbweblinks{
+#gbweblinks {
     background-color: rgb(226, 122, 221);
-     border-radius: 500px 20px 20px 230px;
+    border-radius: 500px 20px 20px 230px;
 }
-#selectbusiness{
+
+#selectbusiness {
     width: 245px;
     color: blue;
     text-align: center;
 }
 
-#selectcategory{
+#selectcategory {
     width: 245px;
     color: blue;
     text-align: center;
 }
 
-#nooftweets{
+#nooftweets {
     width: 245px;
     color: red;
     text-align: center;
 }
 
-#errormessage{
+#errormessage {
     color: red !important;
 }
 
-#nohashtagsmessage{
+#nohashtagsmessage {
     color: skyblue !important;
 }
