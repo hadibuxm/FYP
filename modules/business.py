@@ -1,8 +1,6 @@
 # import re
 import tweepy
 import requests
-# import reurl
-# from nltk.probability import FreqDist
 from nltk.tokenize import regexp_tokenize, word_tokenize
 # from collections import Counter
 from modules import tweepyauth, reurl
