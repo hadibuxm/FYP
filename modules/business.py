@@ -113,8 +113,9 @@ def get_mentions(userid, no_of_tweets, api = API):
     for status in tweepy.Cursor(api.user_timeline, screen_name=userid, tweet_mode="extended").items(no_of_tweets):
         # get hashtags and save in list named hashtags 
         mentions += regexp_tokenize(status.full_text, mentionspattern)
-    mentioncount = Counter(mentions).most_common()
-    return mentioncount, user_description, user_followers
+    mentioncount_for_business = Counter(mentions).most_common()
+    mentioncount = Counter(mentions)
+    return mentioncount, user_description, user_followers, mentioncount_for_business
     """
     new_mentions = list()
     for each_mention in mentioncount:

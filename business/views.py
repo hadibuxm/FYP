@@ -11,7 +11,6 @@ from . models import CountryList
 # Create your views here.
 # HOME PAGE
 
-
 def home(request):
     return render(request, 'business/index.html')
 
@@ -124,7 +123,7 @@ def gbfunctions(request):
         elif 'showmentions' in request.POST:
             try:
                 data = business.get_mentions(userid, nooftweets)
-                mentioncount = data[0]
+                mentioncount = data[3]
                 mentions = dict()
                 user_description = data[1]
                 user_followers = data[2]
@@ -295,7 +294,11 @@ def cfunctions(request):
     if request.method == 'POST':
         business1 = request.POST.get('business1')
         business2 = request.POST.get('business2')
-        numberoftweets = int(request.POST.get('numberoftweets'))
+        try:
+            numberoftweets = int(request.POST.get('numberoftweets'))
+        except:
+            context = {'business2error': 'Please input missing boxes'}
+            return render(request, 'business/cfunctions.html', context)
         if business1 != '' and business2 != '':
             comparedata = compareanalysis.compare(
                 business1, business2, numberoftweets)
@@ -377,7 +380,7 @@ def trends(request):
 
             # if form is not valid
             except:
-                return render(request, 'business/trends.html', {'error': 'Please Enter Correct Name'})
+                return render(request, 'business/trends.html', {'error': 'This City / Country does not exist in twitter trends list'})
 
         # if user has selected trending topoic and want to see tweets
         elif 'selecttopic' and 'seetweets' in request.POST:
@@ -411,7 +414,7 @@ def vfunctions(request):
             request.POST.get("username"))]  # get business name
         # print(id_inputs)
         if(id_inputs[0] == "Select Business"):
-            userid = id_inputs[1]
+            userid = id_inputs[1] # 
         else:
             userid = id_inputs[0]
         nooftweets = int(request.POST.get('nooftweets'))  # get no. of tweets
@@ -425,8 +428,10 @@ def vfunctions(request):
                     return render(request, 'business/vfunctions.html', context)
                 else:
                     context = {
+                        'userid': userid,
+                        'nooftweets' : 'Number of Tweets' + str(nooftweets),
                         'hashtagsbarchart': barchart,
-                        'display_message': 'yes',
+                        'hashtagsbarchart_display': 'yes',
                     }
                     return render(request, 'business/vfunctions.html', context)
             except:
@@ -446,7 +451,9 @@ def vfunctions(request):
                 else:
                     context = {
                         'hashtagspiechart': piechart,
-                        'display_message': 'yes',
+                        'userid' : userid,
+                        'nooftweets': 'Number of Tweets' + str(nooftweets),
+                        'hashtagspiechart_display': 'yes',
                     }
                     return render(request, 'business/vfunctions.html', context)
             except:
@@ -458,7 +465,7 @@ def vfunctions(request):
             # get business name
             try:
                 hash_chart = visualizelib.histplot(userid, nooftweets)
-                return render(request, 'business/vfunctions.html', {'hashchart': hash_chart, 'testmessage': 'in if'})
+                return render(request, 'business/vfunctions.html', {'hashchart': hash_chart,})
             except:
                 context = {
                     'errormessage': 'server not responding, try again in some time'}
@@ -469,7 +476,8 @@ def vfunctions(request):
                 freq_chart = visualizelib.freqplot(userid, nooftweets)
                 context = {'freqchart': freq_chart,
                            'userid': userid,
-                           'display_message': 'yes',
+                           'frequency_display': 'yes',
+                           'nooftweets': 'Number of Tweets ' + str(nooftweets),
                            }
                 return render(request, 'business/vfunctions.html', context)
             except:
@@ -483,21 +491,24 @@ def vfunctions(request):
                 wordfrequencywordcloud = visualizelib.wordfrequencywordcloud(
                     userid, nooftweets)
                 context = {'wordfrequencywordcloud': wordfrequencywordcloud,
-                           'display_message': 'yes',
+                            
+                           'wordfrequencywordcloud_display': 'yes',
                            'userid': userid,
+                           'nooftweets': 'Number of Tweets ' + str(nooftweets),
                            }
                 return render(request, 'business/vfunctions.html', context)
             except:
                 context = {
                     'errormessage': 'server not responding, try again in some time'}
-                return render(request, 'business/gbfunctions.html', context)
+                return render(request, 'business/vfunctions.html', context)
         elif 'bigrams' in request.POST:
             # get business name
             try:
                 bigrams = visualizelib.bigrams(userid, nooftweets)
                 context = {'bigrams': bigrams,
-                           'display_message': 'yes',
+                           'bigrams_display': 'yes',
                            'userid': userid,
+                           'nooftweets': 'Number of Tweets' + str(nooftweets),
                            }
                 return render(request, 'business/vfunctions.html', context)
             except:
@@ -508,11 +519,19 @@ def vfunctions(request):
             try:
                 mentionsbarchart = visualizelib.mentionsbarchart(
                     userid, nooftweets)
-                context = {
-                    'mentionsbarchart': mentionsbarchart,
-                    'display_message': 'yes',
-                }
-                return render(request, 'business/vfunctions.html', context)
+                if mentionsbarchart!=0:
+                    context = {
+                        'mentionsbarchart': mentionsbarchart,
+                        'mentionsbarchart_display': 'yes',
+                        'nooftweets': 'Number of Tweets' + str(nooftweets),
+                        'userid' : userid,
+                        }
+                    return render(request, 'business/vfunctions.html', context)
+                else:
+                    context = {
+                            'errormessage' : "No Mentions " + 'by ' + userid + ' in ' + str(nooftweets) 
+                        }
+                    return render(request, 'busine')
             except:
                 context = {
                     'errormessage': 'api server not responding, try again in some time'}
@@ -524,7 +543,8 @@ def vfunctions(request):
                 context = {
                     'mentionspiechart': mentionspiechart,
                     'userid': userid,
-                    'display_message': 'yes',
+                    'mentionspiechart_display': 'yes',
+                    'nooftweets': 'Number of Tweets ' + str(nooftweets),
                 }
                 return render(request, 'business/vfunctions.html', context)
             except:
@@ -536,8 +556,9 @@ def vfunctions(request):
                 likeschart = visualizelib.likeschart(userid, nooftweets)
                 context = {
                     'likeschart': likeschart,
-                    'display_message': 'yes',
+                    'likeschart_display': 'yes',
                     'userid': userid,
+                    'nooftweets': 'Number of Tweets ' + str(nooftweets),
                 }
                 return render(request, 'business/vfunctions.html', context)
             except:
@@ -549,8 +570,10 @@ def vfunctions(request):
                 retweetschart = visualizelib.retweetschart(userid, nooftweets)
                 context = {
                     'retweetschart': retweetschart,
-                    'display_message': 'yes',
+                    'retweetschart_display': 'yes',
                     'userid': userid,
+                    'nooftweets': 'Number of Tweets ' + str(nooftweets),
+
                 }
                 return render(request, 'business/vfunctions.html', context)
             except:

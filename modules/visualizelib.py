@@ -44,14 +44,17 @@ def mentionsbarchart(userid, no_of_tweets):
         #new_hash.append(each_hash[0] + ': ' + str(each_hash[1]))
         mentions.append(each_mention[0])
         len_mentions.append(each_mention[1])
-    sns.barplot(y = mentions, x = len_mentions)
-    plt.xlabel("No. of times mentioned")
-    #plt.ylabel("No of Times")
-    plt.title(userid)
-    plt.tight_layout()
-    graph = get_graph()
-    return graph
-
+    if len(mentioncount)!=0:
+        sns.barplot(y = mentions, x = len_mentions)
+        plt.xlabel("No. of times mentioned")
+        #plt.ylabel("No of Times")
+        plt.title(userid)
+        plt.tight_layout()
+        graph = get_graph()
+        return graph
+    else:
+        return 0
+        
 def freqplot(userid, no_of_tweets):
     plt.switch_backend('AGG')
     tokens = []

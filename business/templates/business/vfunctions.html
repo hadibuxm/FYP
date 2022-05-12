@@ -113,6 +113,7 @@
         </div>
         <br><br>
         <button class="btn btn-primary btn-length" type="submit" name="bigrams"><b>BIGRAMS</b></button>
+        <!--
         <div class="btn-group-vertical btn-group-lg btn-group-justified">
           <button name="hashtags" class="btn btn-outline-primary btn-lenth" type="submit"><b>Hashtags</b></button>
           <button name="wordcloud" class="btn btn-outline-primary" type="submit"><b>Word Cloud</b></button>
@@ -121,20 +122,25 @@
           <button name="countplot" class="btn btn-outline-primary" type="submit"><b>Count Plot</b></button>
           <button name="bigrams" class="btn btn-outline-primary" type="submit"><b>Bigrams</b></button>
         </div>
+        -->
       </form>
       <br>
       <button onclick="generate_pdf()" class="btn btn-outline-success ">Generate PDF</button>
+      <br><br>
     </div>
     <div class="col-lg-9 canvas_div_pdf">
       <p id="gbinstructions">
       <h2 id="instructionheading">Instructions</h2>
       <ul id="instructionslist">
-        <li><strong>Javascript of browser must be enabled</strong>
+        <!--<li><strong>Javascript of browser must be enabled, else</strong>
+          
           <ul>
             <li>form validation will not be done</li>
             <li>PDF generation may give errors</li>
           </ul>
+          
         </li>
+        -->
         <br>
         <li><strong>You have two options to select business for analysis</strong></li><br>
         <ol>
@@ -147,7 +153,8 @@
         <li><strong>Generate PDF button will create PDF for you</strong></li>
       </ul>
       </p>
-      <h3>{{userid}}</h3>
+      <h3 id="userid">{{userid}}</h3><br>
+      <h4>{{nooftweets}}</h4>
       <img src="data:image/png;base64,{{ hashtagsbarchart|safe}}" id="hashtagsbarchart" class="img-fluid " alt="">
       <img src="data:image/png;base64,{{ wordfrequencywordcloud|safe}}" id="wordfrequencywordcloud" class="img-fluid "
         alt="">
@@ -213,7 +220,7 @@
       return true;
     }
   }
-
+/*
   function display_images() {
     document.getElementById("hashchart").style.display = "block";
     document.getElementById("bigrams").style.display = "block";
@@ -227,7 +234,7 @@
     document.getElementById("hashtagsbarchart").style.display = "block";
     document.getElementById("hashtagspiechart").style.display = "block";
   }
-
+*/
   function hide_images() {
     document.getElementById("hashchart").style.display = "none";
     document.getElementById("bigrams").style.display = "none";
@@ -250,9 +257,59 @@
     //document.getElementById("frequency").style.display = "none";
   }
 
-  if ('{{display_message}}' == 'yes') {
+  /*if ('{{display_message}}') {
     hide_instructions();
     display_images();
+  }*/
+
+  if('{{hashchart}}'){
+    hide_instructions();
+    document.getElementById("hashchart").style.display = "block";
   }
+
+  else if("{{bigrams_display}}"){
+    hide_instructions();
+    document.getElementById("bigrams").style.display = "block";
+  }
+
+  else if ("{{wordfrequencywordcloud_display}}") {
+    hide_instructions();
+    document.getElementById("wordfrequencywordcloud").style.display = "block";
+  }
+
+  else if ("{{mentionsbarchart_display}}") {
+    hide_instructions();
+    document.getElementById("mentionsbarchart").style.display = "block";
+  }
+
+  else if ("{{mentionspiechart_display}}") {
+    hide_instructions();
+    document.getElementById("mentionspiechart").style.display = "block";
+  }
+
+  else if ("{{frequency_display}}") {
+    hide_instructions();
+    document.getElementById("frequency").style.display = "block";
+  }
+
+  else if ("{{likeschart_display}}") {
+    hide_instructions();
+    document.getElementById("likeschart").style.display = "block";
+  }
+  else if ("{{retweetschart_display}}") {
+    hide_instructions();
+    document.getElementById("retweetschart").style.display = "block";
+  }
+
+  else if ("{{hashtagsbarchart_display}}") {
+    hide_instructions();
+    document.getElementById("hashtagsbarchart").style.display = "block";
+  }
+
+  else if ("{{hashtagspiechart_display}}") {
+    hide_instructions();
+    document.getElementById("hashtagspiechart").style.display = "block";
+  }
+  
 </script>
 {% endblock content %}

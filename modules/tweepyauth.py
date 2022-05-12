@@ -22,5 +22,6 @@ auth.set_access_token(access_token, access_token_secret)
 api = API(auth)
 authenticate = tweepy.OAuthHandler(consumer_key, consumer_secret)
 authenticate.set_access_token(access_token, access_token_secret)
+
 # API
 api = tweepy.API(authenticate, wait_on_rate_limit = True)

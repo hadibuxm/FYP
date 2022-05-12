@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-3">
-            <form action="" method="POST" name="cform" onsubmit="return form_validation()">
+            <form action="" method="POST" name="cform">
                 {% csrf_token %}
                 <label for="input1"><strong>Business 1</strong></label>
                 <input type="text" class="form-control" id="business1" name="business1"><br>
@@ -76,6 +76,7 @@
                             <td>{{business1retweets}}</td>
                             <td>{{business2retweets}}</td>
                         </tr>
+                        <!--
                         <tr id="mostlikedtweet">
                             <td><strong>MOST LIKED TWEET</strong></td>
                             <td>{{business1mostlikeddate}}</td>
@@ -101,11 +102,12 @@
                             <td>{{business1mostretweetedltweetikes}}</td>
                             <td>{{business2mostretweetedtweetlikes}}</td>
                         </tr>
+                        
                         <tr id="mostlikedtweettext">
                             <td>Content</td>
                             <td>{{business1mostretweetedtweettext}}</td>
                             <td>{{business2mostretweetedtweettext}}</td>
-                        </tr>
+                        </tr>-->
                         <!--
                     <tr id="latestpost">
                         <td colspan="2" class="text-center"><strong>Latest Post</strong></td>
@@ -149,14 +151,15 @@
 </div>
 <script>
     document.getElementById('business1').value = "{{input1}}";
-    document.getElementById('business2').value = "{{input2}}";
+    document.getElementById('business2').value = "{{input2}}";  
     document.getElementById("numberoftweets").value = "{{numberoftweets}}";
     document.getElementById("comparisontable").style.display = 'none';
     if ("{{displaymessage}}") {
         document.getElementById("comparisontable").style.display = 'block';
     }
     
-    alert(numberoftweets);
+    //alert(numberoftweets);
+    /*
     function  form_validation() {
         business1 = document.forms["cform"]["business1"].value;
         business2 = document.forms['cform']['business2'].value;
@@ -164,12 +167,12 @@
         if(business1 =='' && business2 == '' && numberoftweets==''){
             alert("Please Input Usernames and Number of Tweets");
             return false;
-        }
+        }*/
         /*
         else if(business1==business2){
             alert("Same Usernames can not be compared, please type different usernames");
             return false;
         }*/
-    }
+    
 </script>
 {% endblock content %}
